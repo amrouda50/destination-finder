@@ -11,7 +11,7 @@ import * as turf from '@turf/turf';
 
 const App = () => {
   const [fileRetrieved, setFileRetrieved] = useState([]);
-  const { countries, setCountries, setResults, userData, results} = useTravelRecommenderStore();
+  const { countries, setCountries, setResults, userData, recommendationType, algorithmUsed, refresh} = useTravelRecommenderStore();
   const load = () => {
     const loadCountriesTask = new LoadCountriesTask();
     loadCountriesTask.load(setFileRetrieved);
@@ -23,25 +23,18 @@ const App = () => {
         fileRetrieved,
         userData,
         setCountries,
-        setResults
+        setResults,
+        recommendationType,
+        algorithmUsed
       );
-      
     }
   };
-  console.log(countries)
-  // console.log(fileRetrieved)
+
   useEffect(load, []);
-  useEffect(calculateScores, [userData, fileRetrieved, setCountries, setResults]);
+  useEffect(calculateScores, [userData, fileRetrieved, setCountries, setResults, recommendationType, algorithmUsed, refresh]);
+
   const auth = useAuthContext();
   const { fetch } = useFavourites();
-
-  // useEffect(() => {
-  //   if (!countries?.[0]?.geometry) return;
-  
-  //   const centroid = turf.centroid(countries[0].geometry);
-  //   console.log("Centroid:", centroid);
-  // }, [countries]);
-  
  
   useEffect(() => {
     if (auth.user?.id) {
