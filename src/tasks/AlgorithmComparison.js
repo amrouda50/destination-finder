@@ -11,49 +11,72 @@ export class AlgorithmComparison {
         };
     }
 
+  
     compareAlgorithms = (mapCountries, geneticParams, greedyParams, dynamicParams) => {
-        const results = {};
-        const algorithmParams = {
-            "Greedy": greedyParams,
-            "Genetic": geneticParams,
-            "Dynamic": dynamicParams
-        };
+      const results = {};
+      console.log(greedyParams.greedy)
 
-        // Run comparison for each scenario
-        testScenariosMultiComposite.scenarios.forEach(scenario => {
-            results[scenario.name] = {};
-            
-            // Test each algorithm
-            for (const [algoName, algo] of Object.entries(this.algorithms)) {
-                const startTime = performance.now();
-                let algorithmResults = [];
-                
-                // Run algorithm with its optimized parameters
-                algo(
-                    mapCountries, 
-                    scenario, 
-                    (res) => { algorithmResults = res; },
-                    algorithmParams[algoName] 
-                );
-                
-                const endTime = performance.now();
-                
-                // Calculate metrics
-                results[scenario.name][algoName] = {
-                    ...this.calculateMetrics(algorithmResults),
-                    computationTime: endTime - startTime
-                };
-            }
-        });
+      const algorithmParams = {
+          "Greedy": {
+                  ...greedyParams.greedy
+          },
+          "Genetic": {
+                  ...geneticParams.genetic
+          },
+          "Dynamic": {
+                  ...dynamicParams.dynamic,
 
-        // Generate analysis
-        const analysis = this.generateStatisticalAnalysis(results);
+          }
+      };
 
-        return {
-            detailedResults: results,
-            analysis: analysis
-        };
-    };
+      console.log(algorithmParams)
+
+
+      // Run comparison for each scenario
+      testScenariosMultiComposite.scenarios.forEach(scenario => {
+          results[scenario.name] = {};
+          
+          // Test each algorithm
+          for (const [algoName, algo] of Object.entries(this.algorithms)) {
+              const startTime = performance.now();
+              let algorithmResults = [];
+              
+              try {
+                  // Run algorithm with its optimized parameters
+                  algo(
+                      mapCountries, 
+                      scenario, 
+                      (res) => { algorithmResults = res; },
+                      algorithmParams[algoName]
+                  );
+                  
+                  const endTime = performance.now();
+                  
+                  // Calculate metrics
+                  results[scenario.name][algoName] = {
+                      ...this.calculateMetrics(algorithmResults),
+                      computationTime: endTime - startTime
+                  };
+              } catch (error) {
+                  console.error(`Error running ${algoName} algorithm:`, error);
+                  results[scenario.name][algoName] = {
+                      error: error.message,
+                      ...this.calculateMetrics([]),
+                      computationTime: 0
+                  };
+              }
+          }
+      });
+
+      // Generate analysis
+      const analysis = this.generateStatisticalAnalysis(results);
+
+      return {
+          detailedResults: results,
+          analysis: analysis,
+          parameters: algorithmParams
+      };
+  };
 
     calculateMetrics = (algorithmResults) => {
         if (!algorithmResults || algorithmResults.length === 0) {
@@ -115,7 +138,7 @@ export class AlgorithmComparison {
                 geographicalDiversity: geoDiversity
             };
         } catch (error) {
-            console.error("Error calculating metrics:", error);
+            // console.error("Error calculating metrics:", error);
             return {
                 averageTripCost: 0,
                 numberOfRegions: 0,

@@ -45,6 +45,8 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.user]);
 
+  
+
   return (
     <div style={{ height: "100vh" }}>
         {countries.length === 0 ? (
@@ -54,6 +56,10 @@ const App = () => {
         )}
     </div>
   );
+
+
+
+  
 };
 
 export default App;

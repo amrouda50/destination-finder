@@ -18,6 +18,7 @@ class LoadCountriesTask {
   #allTotalVisitors = {};
   #minVisitors = 0;
   #maxVisitors = 0;
+  isOptimizing = false; 
   load = (setFileRetrieved) => {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/regions?populate=*`)
       .then((response) => {
@@ -223,6 +224,7 @@ class LoadCountriesTask {
         b.properties.result.scores.totalScore -
         a.properties.result.scores.totalScore
     );
+    // this.optimizeAndEvaluate(this.mapCountries)
     setCountries(this.mapCountries);
     this.setTypeResults(this.allResults, userData, this.mapCountries, setResults, recommendationType, algorithmUsed, algorithmParameters)
   };
@@ -311,11 +313,17 @@ class LoadCountriesTask {
   };
   setTypeResults = (results, userData, mapCountries, setResults, type, algorithmUsed, algorithmParameters) => {
     if (type === "single") {
+      
       this.singleRecommendationAlgorithm(results, setResults)
     }
     else if (type === "composite") {
-      // console.log(this.optimizeAndEvaluate(mapCountries))
+      if (!this.isOptimizing) { 
+      this.optimizeAndEvaluate(this.mapCountries)
+      } else{
+        console.log("already optimizing")
+      }
       if (algorithmUsed === "genetic") {
+      
         this.geneticRecommendationAlgorithm(mapCountries, userData, setResults, algorithmParameters)
       }
       else if (algorithmUsed === "greedy") {
@@ -323,71 +331,205 @@ class LoadCountriesTask {
       }
       else {
         this.dynamicDPDominanceRecommendation(mapCountries, userData, setResults, algorithmParameters)
-      }
+       }
     }
   }
 
 
+  async optimizeAndEvaluate(mapCountries) {
+    if (this.isOptimizing) {
+        console.log("Optimization already in progress");
+        return;
+    }
 
-saveToJSON = (data, filename) => {
-    const jsonString = JSON.stringify(data, null, 2);
-    const blob = new Blob([jsonString], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    try {
+        this.isOptimizing = true;
+        console.log("Starting optimization...");
+        const startTime = performance.now();
+        
+        // Initialize tuner with configuration
+        const tuner = new HyperparameterTuning(
+            (...args) => this.greedyRecommendationAlgorithm.apply(this, args),
+            (...args) => this.geneticRecommendationAlgorithm.apply(this, args),
+            (...args) => this.dynamicDPDominanceRecommendation.apply(this, args),
+            {
+                batchSize: 50,
+                maxCacheSize: 500,
+                timeoutBetweenBatches: 10,
+                enableProgressTracking: true,
+                enableCaching: true
+            }
+        );
+
+        // Run hyperparameter tuning with progress tracking
+        let tuningResults;
+        try {
+            console.log("Running hyperparameter tuning...");
+            tuningResults = await tuner.findBestParameters(mapCountries);
+            console.log("Hyperparameter tuning completed");
+            
+            await this.saveToJSON(
+                { 
+                    checkpoint: 'tuning', 
+                    results: tuningResults,
+                    timestamp: new Date().toISOString()
+                }, 
+                'tuning_checkpoint.json'
+            );
+        } catch (tuningError) {
+            console.error("Tuning error:", tuningError);
+            throw new Error(`Tuning failed: ${tuningError.message}`);
+        }
+
+        // Generate and save tuning report
+        let tuningReport;
+        try {
+            console.log("Generating tuning report...");
+            tuningReport = tuner.generateTuningReport(tuningResults);
+            
+            await this.saveToJSON(
+                { 
+                    checkpoint: 'report', 
+                    report: tuningReport,
+                    timestamp: new Date().toISOString()
+                }, 
+                'report_checkpoint.json'
+            );
+        } catch (reportError) {
+            console.error("Report generation error:", reportError);
+            throw new Error(`Report generation failed: ${reportError.message}`);
+        }
+
+        // Run algorithm comparison with new parameter structure
+        console.log("Running algorithm comparison...");
+        const comparison = new AlgorithmComparison(
+            (...args) => this.greedyRecommendationAlgorithm.apply(this, args),
+            (...args) => this.geneticRecommendationAlgorithm.apply(this, args),
+            (...args) => this.dynamicDPDominanceRecommendation.apply(this, args)
+        );
+
+        let comparisonResults;
+        try {
+            // Pass parameters in the new structure
+            comparisonResults = comparison.compareAlgorithms(
+                mapCountries, 
+                { genetic: tuningResults.bestParameters.Genetic },
+                { greedy: tuningResults.bestParameters.Greedy },
+                { dynamic: tuningResults.bestParameters.Dynamic }
+            );
+            
+            await this.saveToJSON(
+                { 
+                    checkpoint: 'comparison', 
+                    results: comparisonResults,
+                    timestamp: new Date().toISOString()
+                }, 
+                'comparison_checkpoint.json'
+            );
+        } catch (comparisonError) {
+            console.error("Comparison error:", comparisonError);
+            throw new Error(`Comparison failed: ${comparisonError.message}`);
+        }
+
+        // Prepare final results with detailed metrics
+        const endTime = performance.now();
+        const executionTime = (endTime - startTime) / 1000;
+        
+        const evaluationResults = {
+            metadata: {
+                timestamp: new Date().toISOString(),
+                numberOfScenarios: testScenariosMultiComposite.scenarios.length,
+                datasetSize: mapCountries.length,
+                performance: {
+                    executionTime,
+                    memoryUsage: performance.memory ? 
+                        performance.memory.usedJSHeapSize : 
+                        'Not available',
+                    status: 'completed'
+                }
+            },
+            hyperparameterTuning: {
+                bestParameters: {
+                    Genetic: { genetic: tuningResults.bestParameters.Genetic },
+                    Greedy: { greedy: tuningResults.bestParameters.Greedy },
+                    Dynamic: { dynamic: tuningResults.bestParameters.Dynamic }
+                },
+                parameterSensitivity: tuningReport.parameterSensitivity,
+                statisticalSummary: tuningReport.statisticalSummary
+            },
+            algorithmComparison: comparisonResults
+        };
+
+        // Save final results
+        console.log("Saving final results...");
+        await this.saveToJSON(evaluationResults, 'evaluationResults.json');
+        
+        console.log(`Optimization completed in ${executionTime.toFixed(2)} seconds`);
+        return evaluationResults;
+
+    } catch (error) {
+        console.error("Optimization failed:", error);
+        
+        const errorResults = {
+            metadata: {
+                timestamp: new Date().toISOString(),
+                status: 'failed',
+                error: {
+                    message: error.message,
+                    stack: error.stack,
+                    type: error.constructor.name
+                }
+            }
+        };
+
+        await this.saveToJSON(errorResults, 'evaluationResults_error.json');
+        throw error;
+    } finally {
+        this.isOptimizing = false;
+        if (typeof global.gc === 'function') {
+            global.gc();
+        }
+    }
 }
 
-optimizeAndEvaluate = (mapCountries) => {
-  console.log("Starting optimization...");
+// Helper method to save blobs
+async saveBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
   
-  const tuner = new HyperparameterTuning(
-      this.greedyRecommendationAlgorithm,
-      this.geneticRecommendationAlgorithm,
-      this.dynamicDPDominanceRecommendation
-  );
+  // Give browser time to process
+  await new Promise(resolve => setTimeout(resolve, 100));
+}
 
-  const tuningResults = tuner.findBestParameters(mapCountries);
-  const tuningReport = tuner.generateTuningReport(tuningResults);
-  
-  const comparison = new AlgorithmComparison(
-      (countries, scenarios, setResults, algorithmParameters) => 
-          this.greedyRecommendationAlgorithm(countries, scenarios, setResults, algorithmParameters),
-      (countries, scenarios, setResults, algorithmParameters) => 
-          this.geneticRecommendationAlgorithm(countries, scenarios, setResults, algorithmParameters),
-      (countries, scenarios, setResults, algorithmParameters) => 
-          this.dynamicDPDominanceRecommendation(countries, scenarios, setResults, algorithmParameters)
-  );
-
-  const comparisonResults = comparison.compareAlgorithms(
-      mapCountries, 
-      tuningResults.bestParameters.Genetic,
-      tuningResults.bestParameters.Greedy, 
-      tuningResults.bestParameters.Dynamic
-  );
-  
-  const evaluationResults = {
-      metadata: {
-          timestamp: new Date().toISOString(),
-          numberOfScenarios: testScenariosMultiComposite.scenarios.length,
-          datasetSize: mapCountries.length
-      },
-      hyperparameterTuning: {
-          bestParameters: tuningResults.bestParameters,
-          parameterSensitivity: tuningReport.parameterSensitivity,
-          statisticalSummary: tuningReport.statisticalSummary
-      },
-      algorithmComparison: comparisonResults
-  };
-   
-  // Save to file
-  this.saveToJSON(evaluationResults, 'evaluationResults.json');
-  
-  return evaluationResults;
+// Modified saveToJSON to handle large data
+async saveToJSON(data, filename) {
+  try {
+      const jsonString = JSON.stringify(data, null, 2);
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      
+      // Use chunks for large files
+      if (blob.size > 100000000) { // 100MB
+          const chunks = Math.ceil(blob.size / 100000000);
+          for (let i = 0; i < chunks; i++) {
+              const start = i * 100000000;
+              const end = Math.min(start + 100000000, blob.size);
+              const chunkBlob = blob.slice(start, end);
+              const chunkFilename = `${filename}.part${i + 1}`;
+              await this.saveBlob(chunkBlob, chunkFilename);
+          }
+      } else {
+          await this.saveBlob(blob, filename);
+      }
+  } catch (error) {
+      console.error('Failed to save results:', error);
+      localStorage.setItem(`optimization_error_${Date.now()}`, JSON.stringify(data));
+  }
 }
 
   singleRecommendationAlgorithm = (results, setResults) => {
@@ -456,12 +598,13 @@ optimizeAndEvaluate = (mapCountries) => {
         selectedRegions.push(bestCandidate);
     }
 
-    // Allocate weeks using ILP
+    // Allocate weeks using ILP with new parameter structure
     const allocatedRegions = this.allocateWeeksILP(
         selectedRegions,
         numberOfWeeks,
-        Math.ceil(numberOfWeeks * algorithmParameters.weekAllocation.maxWeeksPerRegionRatio),
-        userData.weekAllocationDistribution * algorithmParameters.weekAllocation.lambdaPenalty.scaling
+        'greedy',
+        userData,
+        algorithmParameters
     );
 
     setResults(
@@ -470,368 +613,349 @@ optimizeAndEvaluate = (mapCountries) => {
             allocatedWeeks: weeks
         }))
     );
-}
-
-
-
-  geneticRecommendationAlgorithm = (
-    mapCountries,
-    userData,
-    setResults,
-    algorithmParameters,
-    populationSize = 20,
-    generations = 200,
-    mutationRate = 0.01,
-    tournamentSize = 3
-) => {
-    // Initialize parameters from algorithmParameters
-    populationSize = algorithmParameters.genetic.populationSize;
-    generations = algorithmParameters.genetic.generations;
-    mutationRate = algorithmParameters.genetic.mutationRate;
-    tournamentSize = algorithmParameters.genetic.tournamentSize;
-
-    // Budget calculation
-    let numberOfWeeks = Math.round(1 + userData.Weeks / 5);
-    let budgetPerWeek = userData.Budget === 0 ? 225 : userData.Budget === 50 ? 450 : 900;
-    let totalBudget = budgetPerWeek * numberOfWeeks;
-
-    const maxRegions = mapCountries.length;
-
-    // Initialize population (unchanged)
-    function initializePopulation() {
-        const population = [];
-        for (let i = 0; i < populationSize; i++) {
-            const chromosome = [];
-            const usedIndices = new Set();
-            const length = Math.floor(Math.random() * maxRegions) + 1;
-
-            while (chromosome.length < length) {
-                const index = Math.floor(Math.random() * mapCountries.length);
-                if (!usedIndices.has(index)) {
-                    usedIndices.add(index);
-                    chromosome.push(mapCountries[index]);
-                }
-            }
-            population.push(chromosome);
-        }
-        return population;
-    }
-
-    // Updated penalty computation using new functions
-    function computePenalty(chromosome) {
-        return this.calculateMultiRegionPenalty(
-            chromosome,
-            'genetic',
-            userData,
-            algorithmParameters
-        );
-    }
-
-    // Fitness computation (modified to use new penalty)
-    function computeFitness(chromosome) {
-        let totalAttr = 0,
-            budgetScore = 0,
-            travelMonthScore = 0,
-            visitorScore = 0,
-            totalCost = 0;
-
-        for (const region of chromosome) {
-            const scores = region.properties.result.scores;
-            totalAttr += (scores.totalAttrScore.score) / (scores.totalAttrScore.weight) || 0;
-            budgetScore += scores.budgetScore || 0;
-            travelMonthScore += scores.travelMonthScore || 0;
-            visitorScore += scores.visitorScore || 0;
-            totalCost += region.properties.result.price || 0;
-        }
-
-        if (totalCost > totalBudget) return -Infinity;
-
-        const penalty = computePenalty.call(this, chromosome);
-        return (totalAttr + budgetScore + travelMonthScore + visitorScore) * penalty;
-    }
-
-    // Tournament selection (unchanged)
-    function tournamentSelection(population, fitnesses) {
-        const candidates = [];
-        const tournamentSize = algorithmParameters.genetic.tournamentSize;
-        for (let i = 0; i < tournamentSize; i++) {
-            const idx = Math.floor(Math.random() * population.length);
-            candidates.push({ chromosome: population[idx], fitness: fitnesses[idx] });
-        }
-        candidates.sort((a, b) => b.fitness - a.fitness);
-        return candidates[0].chromosome;
-    }
-
-    // Crossover (unchanged)
-    function crossover(parent1, parent2) {
-        const child = [];
-        const usedNames = new Set();
-
-        const combined = [...parent1, ...parent2].filter(
-            (region, idx, self) =>
-                !usedNames.has(region.properties.name) && (usedNames.add(region.properties.name) || true)
-        );
-
-        const length = Math.floor(Math.random() * combined.length) + 1;
-        for (let i = 0; i < length; i++) {
-            child.push(combined[i]);
-        }
-
-        return child;
-    }
-
-    // Mutation (unchanged)
-    function mutate(chromosome) {
-        if (Math.random() < mutationRate && chromosome.length > 0) {
-            const idxToReplace = Math.floor(Math.random() * chromosome.length);
-            let replacement;
-            const existingNames = new Set(chromosome.map(r => r.properties.name));
-
-            do {
-                replacement = mapCountries[Math.floor(Math.random() * mapCountries.length)];
-            } while (existingNames.has(replacement.properties.name));
-
-            chromosome[idxToReplace] = replacement;
-        }
-        return chromosome;
-    }
-
-    // Main GA Loop
-    let population = initializePopulation();
-
-    for (let gen = 0; gen < generations; gen++) {
-        const fitnesses = population.map(chr => computeFitness.call(this, chr));
-        const newPopulation = [];
-
-        // Elitism
-        const eliteIndex = fitnesses.indexOf(Math.max(...fitnesses));
-        newPopulation.push(population[eliteIndex]);
-
-        while (newPopulation.length < populationSize) {
-            const parent1 = tournamentSelection(population, fitnesses);
-            const parent2 = tournamentSelection(population, fitnesses);
-            let child = crossover(parent1, parent2);
-            child = mutate(child);
-            newPopulation.push(child);
-        }
-
-        population = newPopulation;
-    }
-
-    // Final selection and allocation
-    const finalFitnesses = population.map(chr => computeFitness.call(this, chr));
-    const bestIndex = finalFitnesses.indexOf(Math.max(...finalFitnesses));
-    const bestChromosome = population[bestIndex];
-
-    // Week allocation
-    const allocatedRegions = this.allocateWeeksILP(
-        bestChromosome,
-        numberOfWeeks,
-        Math.ceil(numberOfWeeks * algorithmParameters.weekAllocation.maxWeeksPerRegionRatio),
-        userData.weekAllocationDistribution * algorithmParameters.weekAllocation.lambdaPenalty.scaling
-    );
-
-    setResults(
-        allocatedRegions.map(({ region, weeks }) => ({
-            ...region.properties.result,
-            allocatedWeeks: weeks,
-        }))
-    );
 };
 
-  
-  
-  dynamicDPDominanceRecommendation = (mapCountries, userData, setResults, algorithmParameters) => {
-    // ---- Helper: Attribute Score Accessor (for weighted/unweighted attribute objects) ----
-    function getAttributeScore(scoresObj, att) {
-      const val = scoresObj[att];
-      if (val && typeof val === 'object' && 'score' in val && 'weight' in val && val.weight !== 0) {
-        return val.score / val.weight;
-      }
-      if (val && typeof val === 'object' && 'score' in val) {
-        return val.score; // fallback
-      }
-      return val;
-    }
-  
-    // ---- Helper: Strict Dominance Pruning ----
-    function strictlyDominatedRegions(regionArray, attributes) {
-      const dominatedIdx = new Set();
-      for (let i = 0; i < regionArray.length; i++) {
-        for (let j = 0; j < regionArray.length; j++) {
-          if (i === j) continue;
-          let all_le = true, one_strict_less = false;
-          for (let k = 0; k < attributes.length; k++) {
-            let ai = getAttributeScore(regionArray[i].properties.result.scores, attributes[k]);
-            let aj = getAttributeScore(regionArray[j].properties.result.scores, attributes[k]);
-            if (ai > aj) all_le = false;
-            if (ai < aj) one_strict_less = true;
-          }
-          if (all_le && one_strict_less) {
-            dominatedIdx.add(i);
-            break;
-          }
-        }
-      }
-      return dominatedIdx;
-    }
-  
-    // ---- Helper: Custom Dominance Score (EC, DD, CDS) ----
-    function customDominanceScores(regionArray, attributes, alpha = 0.5) {
-      // Excellence Count per attribute
-      const ec = regionArray.map(_ => attributes.map(_ => 0));
-      for (let a = 0; a < attributes.length; a++) {
-        for (let i = 0; i < regionArray.length; i++) {
-          for (let j = 0; j < regionArray.length; j++) {
-            if (i === j) continue;
-            let ai = getAttributeScore(regionArray[i].properties.result.scores, attributes[a]);
-            let aj = getAttributeScore(regionArray[j].properties.result.scores, attributes[a]);
-            if (ai > aj) ec[i][a]++;
-          }
-        }
-        let maxCount = Math.max(...ec.map(row => row[a]));
-        for (let i = 0; i < regionArray.length; i++) {
-          if (maxCount !== 0) ec[i][a] /= maxCount;
-        }
-      }
-      const ecPerf = ec.map(arr => arr.reduce((a, b) => a + b, 0) / arr.length);
-  
-      // Dominance Degree per attribute
-      const dd = regionArray.map(_ => attributes.map(_ => 0));
-      for (let a = 0; a < attributes.length; a++) {
-        for (let i = 0; i < regionArray.length; i++) {
-          for (let j = 0; j < regionArray.length; j++) {
-            if (i === j) continue;
-            let ai = getAttributeScore(regionArray[i].properties.result.scores, attributes[a]);
-            let aj = getAttributeScore(regionArray[j].properties.result.scores, attributes[a]);
-            if (ai > aj) dd[i][a] += (ai - aj);
-          }
-        }
-        let maxDom = Math.max(...dd.map(row => row[a]));
-        for (let i = 0; i < regionArray.length; i++) {
-          if (maxDom !== 0) dd[i][a] /= maxDom;
-        }
-      }
-      const ddPerf = dd.map(arr => arr.reduce((a, b) => a + b, 0) / arr.length);
-  
-      // Composite Score: weighted sum
-      const composite = regionArray.map((_, i) => alpha * ecPerf[i] + (1 - alpha) * ddPerf[i]);
-      return composite.map((score, idx) => ({ idx, score }))
-        .sort((a, b) => b.score - a.score);
-    }
-  
-    // ---- Parameters and Budget Calculation ----
-    let numberOfWeeks = Math.round(1 + userData.Weeks / 5);
-    let budget;
-    if (userData.Budget === 0) {
-      budget = 225 * numberOfWeeks;
-    } else if (userData.Budget === 50) {
-      budget = 450 * numberOfWeeks;
-    } else if (userData.Budget === 100) {
-      budget = 900 * numberOfWeeks;
-    }
-  
-    // Penalty rate setup
-    const minPenaltyRate = algorithmParameters.distanceDecay.penalties.dynamic.minPenaltyRate;   // very small
-    const maxPenaltyRate = algorithmParameters.distanceDecay.penalties.dynamic.maxPenaltyRate;   // a little more than min
 
-    let penaltyRate = minPenaltyRate + (maxPenaltyRate - minPenaltyRate) * Math.pow(userData.Distance / 10, 2);
-    
-    if (userData.isDistanceNotImportant) {
-      penaltyRate = 0;
-    }
-  
-    // Attributes used for dominance
-    const attributes = ['budgetScore', 'totalAttrScore', 'travelMonthScore', 'visitorScore', 'penalizedScore'];
-  
-    // Initial sort by totalScore
-    mapCountries.sort((a, b) =>
-      b.properties.result.scores.totalScore - a.properties.result.scores.totalScore
-    );
-  
-    // ---- Iterative Selection ----
-    let selectedRegions = [];
-    let availableRegions = [...mapCountries];
-    let currentBudget = budget;
-  
-    // Select region with highest totalScore and remove from pool
-    selectedRegions.push(availableRegions[0]);
-    currentBudget -= availableRegions[0].properties.result.price;
-    availableRegions.splice(0, 1);
-  
-    while (true) {
-      // Remove strictly dominated regions
-    let dominated = strictlyDominatedRegions(availableRegions, attributes);
-    let filteredRegions = availableRegions.filter((_, idx) => !dominated.has(idx));
-    if (filteredRegions.length === 0) break;
+geneticRecommendationAlgorithm = (mapCountries, userData, setResults, algorithmParameters) => {
+  // Get genetic-specific parameters
+  const geneticParams = algorithmParameters.genetic;
+  const populationSize = geneticParams.populationSize;
+  const generations = geneticParams.generations;
+  const mutationRate = geneticParams.mutationRate;
+  const tournamentSize = geneticParams.tournamentSize;
 
-    // Affordable only
-    let affordable = filteredRegions.filter(r => r.properties.result.price <= currentBudget);
-    if (affordable.length === 0) break;
+  // Budget calculation
+  let numberOfWeeks = Math.round(1 + userData.Weeks / 5);
+  let budgetPerWeek = userData.Budget === 0 ? 225 : userData.Budget === 50 ? 450 : 900;
+  let totalBudget = budgetPerWeek * numberOfWeeks;
 
-    // ---- Modified Penalty Application using new functions ----
-    affordable.forEach(candidate => {
-      // Create temporary array with current candidate and selected regions
-      const tempRegions = [...selectedRegions, candidate];
-      
-      // Calculate multi-region penalty using the new functions
-      const totalPenalty = this.calculateMultiRegionPenalty(
-        tempRegions,
-        'dynamic', // algorithm type
-        userData,
-        algorithmParameters
+  const maxRegions = mapCountries.length;
+
+  // Initialize population
+  const initializePopulation = () => {
+      const population = [];
+      for (let i = 0; i < populationSize; i++) {
+          const chromosome = [];
+          const usedIndices = new Set();
+          const length = Math.floor(Math.random() * maxRegions) + 1;
+
+          while (chromosome.length < length) {
+              const index = Math.floor(Math.random() * mapCountries.length);
+              if (!usedIndices.has(index)) {
+                  usedIndices.add(index);
+                  chromosome.push(mapCountries[index]);
+              }
+          }
+          population.push(chromosome);
+      }
+      return population;
+  };
+
+  // Penalty computation using new parameter structure
+  const computePenalty = (chromosome) => {
+      return this.calculateMultiRegionPenalty(
+          chromosome,
+          'genetic',
+          userData,
+          algorithmParameters
+      );
+  };
+
+  // Fitness computation
+  const computeFitness = (chromosome) => {
+      let totalAttr = 0,
+          budgetScore = 0,
+          travelMonthScore = 0,
+          visitorScore = 0,
+          totalCost = 0;
+
+      for (const region of chromosome) {
+          const scores = region.properties.result.scores;
+          totalAttr += (scores.totalAttrScore.score) / (scores.totalAttrScore.weight) || 0;
+          budgetScore += scores.budgetScore || 0;
+          travelMonthScore += scores.travelMonthScore || 0;
+          visitorScore += scores.visitorScore || 0;
+          totalCost += region.properties.result.price || 0;
+      }
+
+      if (totalCost > totalBudget) return -Infinity;
+
+      const penalty = computePenalty(chromosome);
+      return (totalAttr + budgetScore + travelMonthScore + visitorScore) * penalty;
+  };
+
+  // Tournament selection
+  const tournamentSelection = (population, fitnesses) => {
+      const candidates = [];
+      for (let i = 0; i < tournamentSize; i++) {
+          const idx = Math.floor(Math.random() * population.length);
+          candidates.push({ chromosome: population[idx], fitness: fitnesses[idx] });
+      }
+      candidates.sort((a, b) => b.fitness - a.fitness);
+      return candidates[0].chromosome;
+  };
+
+  // Crossover
+  const crossover = (parent1, parent2) => {
+      const child = [];
+      const usedNames = new Set();
+
+      const combined = [...parent1, ...parent2].filter(
+          (region, idx, self) =>
+              !usedNames.has(region.properties.name) && (usedNames.add(region.properties.name) || true)
       );
 
-      // Apply penalty to each attribute
-      for (const attr of attributes) {
-        let originalScore = candidate.properties.result.scores[attr];
-        if (typeof originalScore !== 'number') continue;
-        candidate.properties.result.scores[attr] = originalScore * totalPenalty;
+      const length = Math.floor(Math.random() * combined.length) + 1;
+      for (let i = 0; i < length; i++) {
+          child.push(combined[i]);
       }
-    });
+
+      return child;
+  };
+
+  // Mutation
+  const mutate = (chromosome) => {
+      if (Math.random() < mutationRate && chromosome.length > 0) {
+          const idxToReplace = Math.floor(Math.random() * chromosome.length);
+          let replacement;
+          const existingNames = new Set(chromosome.map(r => r.properties.name));
+
+          do {
+              replacement = mapCountries[Math.floor(Math.random() * mapCountries.length)];
+          } while (existingNames.has(replacement.properties.name));
+
+          chromosome[idxToReplace] = replacement;
+      }
+      return chromosome;
+  };
+
+  // Main GA Loop
+  let population = initializePopulation();
+  let bestSolution = null;
+  let bestFitness = -Infinity;
+
+  for (let gen = 0; gen < generations; gen++) {
+      const fitnesses = population.map(chr => computeFitness(chr));
+      const newPopulation = [];
+
+      // Update best solution
+      const currentBestIndex = fitnesses.indexOf(Math.max(...fitnesses));
+      if (fitnesses[currentBestIndex] > bestFitness) {
+          bestFitness = fitnesses[currentBestIndex];
+          bestSolution = [...population[currentBestIndex]];
+      }
+
+      // Elitism
+      newPopulation.push([...population[currentBestIndex]]);
+
+      // Generate new population
+      while (newPopulation.length < populationSize) {
+          const parent1 = tournamentSelection(population, fitnesses);
+          const parent2 = tournamentSelection(population, fitnesses);
+          let child = crossover(parent1, parent2);
+          child = mutate(child);
+          newPopulation.push(child);
+      }
+
+      population = newPopulation;
+  }
+
+  // Use best solution found
+  const bestChromosome = bestSolution;
+
+  // Week allocation using new parameter structure
+  const allocatedRegions = this.allocateWeeksILP(
+      bestChromosome,
+      numberOfWeeks,
+      'genetic',
+      userData,
+      algorithmParameters
+  );
+
+  setResults(
+      allocatedRegions.map(({ region, weeks }) => ({
+          ...region.properties.result,
+          allocatedWeeks: weeks,
+      }))
+  );
+};
   
-      // ---- Custom Dominance: compute composite score if enough candidates ----
-      let candidates;
-      if (affordable.length >= 2) {
-        let dominanceRanking = customDominanceScores(affordable, attributes);
-        const best = dominanceRanking[0].idx;
-        candidates = [affordable[best]];
-      } else {
-        candidates = affordable;
+  
+dynamicDPDominanceRecommendation = (mapCountries, userData, setResults, algorithmParameters) => {
+  // Get dynamic-specific parameters
+  const dynamicParams = algorithmParameters.dynamic;
+  const { alpha, attributes } = dynamicParams.dominance;
+
+  // Helper functions converted to arrow functions for proper 'this' binding
+  const getAttributeScore = (scoresObj, att) => {
+      const val = scoresObj[att];
+      if (val && typeof val === 'object' && 'score' in val && 'weight' in val && val.weight !== 0) {
+          return val.score / val.weight;
       }
+      if (val && typeof val === 'object' && 'score' in val) {
+          return val.score;
+      }
+      return val;
+  };
+
+  const strictlyDominatedRegions = (regionArray, attributes) => {
+      const dominatedIdx = new Set();
+      for (let i = 0; i < regionArray.length; i++) {
+          for (let j = 0; j < regionArray.length; j++) {
+              if (i === j) continue;
+              let all_le = true, one_strict_less = false;
+              for (const attr of attributes) {
+                  let ai = getAttributeScore(regionArray[i].properties.result.scores, attr);
+                  let aj = getAttributeScore(regionArray[j].properties.result.scores, attr);
+                  if (ai > aj) all_le = false;
+                  if (ai < aj) one_strict_less = true;
+              }
+              if (all_le && one_strict_less) {
+                  dominatedIdx.add(i);
+                  break;
+              }
+          }
+      }
+      return dominatedIdx;
+  };
+
+  const customDominanceScores = (regionArray, attributes) => {
+      // Excellence Count calculation
+      const ec = regionArray.map(_ => attributes.map(_ => 0));
+      for (let a = 0; a < attributes.length; a++) {
+          for (let i = 0; i < regionArray.length; i++) {
+              for (let j = 0; j < regionArray.length; j++) {
+                  if (i === j) continue;
+                  let ai = getAttributeScore(regionArray[i].properties.result.scores, attributes[a]);
+                  let aj = getAttributeScore(regionArray[j].properties.result.scores, attributes[a]);
+                  if (ai > aj) ec[i][a]++;
+              }
+          }
+          let maxCount = Math.max(...ec.map(row => row[a]));
+          if (maxCount !== 0) {
+              for (let i = 0; i < regionArray.length; i++) {
+                  ec[i][a] /= maxCount;
+              }
+          }
+      }
+      const ecPerf = ec.map(arr => arr.reduce((a, b) => a + b, 0) / arr.length);
+
+      // Dominance Degree calculation
+      const dd = regionArray.map(_ => attributes.map(_ => 0));
+      for (let a = 0; a < attributes.length; a++) {
+          for (let i = 0; i < regionArray.length; i++) {
+              for (let j = 0; j < regionArray.length; j++) {
+                  if (i === j) continue;
+                  let ai = getAttributeScore(regionArray[i].properties.result.scores, attributes[a]);
+                  let aj = getAttributeScore(regionArray[j].properties.result.scores, attributes[a]);
+                  if (ai > aj) dd[i][a] += (ai - aj);
+              }
+          }
+          let maxDom = Math.max(...dd.map(row => row[a]));
+          if (maxDom !== 0) {
+              for (let i = 0; i < regionArray.length; i++) {
+                  dd[i][a] /= maxDom;
+              }
+          }
+      }
+      const ddPerf = dd.map(arr => arr.reduce((a, b) => a + b, 0) / arr.length);
+
+      // Composite Score using alpha parameter
+      const composite = regionArray.map((_, i) => alpha * ecPerf[i] + (1 - alpha) * ddPerf[i]);
+      return composite.map((score, idx) => ({ idx, score }))
+          .sort((a, b) => b.score - a.score);
+  };
+
+  // Budget calculation
+  let numberOfWeeks = Math.round(1 + userData.Weeks / 5);
+  let budget = userData.Budget === 0 ? 225 * numberOfWeeks :
+              userData.Budget === 50 ? 450 * numberOfWeeks :
+              900 * numberOfWeeks;
+
+  // Initial sorting
+  mapCountries.sort((a, b) =>
+      b.properties.result.scores.totalScore - a.properties.result.scores.totalScore
+  );
+
+  // Iterative Selection
+  let selectedRegions = [];
+  let availableRegions = [...mapCountries];
+  let currentBudget = budget;
+
+  // Select first region
+  selectedRegions.push(availableRegions[0]);
+  currentBudget -= availableRegions[0].properties.result.price;
+  availableRegions.splice(0, 1);
+
+  // Main selection loop
+  while (true) {
+      // Dominance pruning
+      let dominated = strictlyDominatedRegions(availableRegions, attributes);
+      let filteredRegions = availableRegions.filter((_, idx) => !dominated.has(idx));
+      if (filteredRegions.length === 0) break;
+
+      // Budget filtering
+      let affordable = filteredRegions.filter(r => r.properties.result.price <= currentBudget);
+      if (affordable.length === 0) break;
+
+      // Apply penalties
+      affordable.forEach(candidate => {
+          const tempRegions = [...selectedRegions, candidate];
+          const totalPenalty = this.calculateMultiRegionPenalty(
+              tempRegions,
+              'dynamic',
+              userData,
+              algorithmParameters
+          );
+
+          // Apply penalty to scores
+          for (const attr of attributes) {
+              let originalScore = candidate.properties.result.scores[attr];
+              if (typeof originalScore === 'number') {
+                  candidate.properties.result.scores[attr] = originalScore * totalPenalty;
+              }
+          }
+      });
+
+      // Select best candidate using dominance
+      let candidates = affordable.length >= 2 ?
+          [affordable[customDominanceScores(affordable, attributes)[0].idx]] :
+          affordable;
+
       if (candidates.length === 0) break;
-      let toAdd = candidates[0];
-  
-      // Update budget/selection/pool
+
+      // Update selections
+      const toAdd = candidates[0];
       currentBudget -= toAdd.properties.result.price;
       selectedRegions.push(toAdd);
       availableRegions = availableRegions.filter(r => r !== toAdd);
-    }
-  
-    // ---- Week Distribution Optimization ----
-    // This uses an ILP-based allocation method (provided by you)
-    // Adjust the arguments as per your allocation function requirements
-    const allocatedRegions = this.allocateWeeksILP(
+  }
+
+  // Week allocation using new parameter structure
+  const allocatedRegions = this.allocateWeeksILP(
       selectedRegions,
       numberOfWeeks,
-      Math.ceil(numberOfWeeks * algorithmParameters.weekAllocation.maxWeeksPerRegionRatio), // Use ratio from store
-      userData.weekAllocationDistribution * algorithmParameters.weekAllocation.lambdaPenalty.scaling,
-      algorithmParameters.weekAllocation.penaltyFunction
-    );
-  
-    // ---- Set Final Results ----
-    setResults(
+      'dynamic',
+      userData,
+      algorithmParameters
+  );
+
+  // Set results
+  setResults(
       allocatedRegions.map(({ region, weeks }) => ({
-        ...region.properties.result,
-        allocatedWeeks: weeks
+          ...region.properties.result,
+          allocatedWeeks: weeks
       }))
-    );
-  }
+  );
+};
 
 
   calculateDistanceDecay = (distance, algorithmType, userData, algorithmParameters) => {
-    const { strategy, scalingFunction, penalties } = algorithmParameters.distanceDecay;
-    const { minPenaltyRate, maxPenaltyRate } = penalties[algorithmType];
+    // Get algorithm-specific parameters
+    const algoParams = algorithmParameters[algorithmType];
+    // console.log(algoParams)
+    const { strategy, scalingFunction } = algoParams.distanceDecay;
+    const { minPenaltyRate, maxPenaltyRate } = algoParams.distanceDecay.penalties[algorithmType];
 
     // If distance is not important, return no penalty
     if (userData.isDistanceNotImportant) {
@@ -892,7 +1016,12 @@ calculateMultiRegionPenalty = (regions, algorithmType, userData, algorithmParame
     return totalPenalty;
 };
 
-  allocateWeeksILP = (regions, totalWeeks, maxWeeksPerRegion, lambdaPenalty, penaltyFunction) => {
+allocateWeeksILP = (regions, totalWeeks, algorithmType, userData, algorithmParameters) => {
+    const algoParams = algorithmParameters[algorithmType].weekAllocation;
+    const maxWeeksPerRegion = Math.ceil(totalWeeks * algoParams.maxWeeksPerRegionRatio);
+    const lambdaPenalty = userData.weekAllocationDistribution * algoParams.lambdaPenalty.scaling;
+    const penaltyFunction = algoParams.penaltyFunction;
+
     const model = {
         optimize: 'totalScore',
         opType: 'max',
@@ -918,11 +1047,11 @@ calculateMultiRegionPenalty = (regions, algorithmType, userData, algorithmParame
                 case "linear":
                     penalty = lambdaPenalty * Math.abs(w - mu);
                     break;
-                case "cubic":
-                    penalty = lambdaPenalty * Math.pow(w - mu, 3);
+                case "exponential":
+                    penalty = lambdaPenalty * Math.exp(Math.abs(w - mu));
                     break;
                 default:
-                    penalty = lambdaPenalty * Math.pow(w - mu, 2); // default to quadratic
+                    penalty = lambdaPenalty * Math.pow(w - mu, 2);
             }
 
             // Adjusted totalScore subtracts penalty
@@ -936,7 +1065,7 @@ calculateMultiRegionPenalty = (regions, algorithmType, userData, algorithmParame
         }
     });
 
-    // Constraint: Each region can have only one week allocation (binary sum = 1)
+    // Constraint: Each region can have only one week allocation
     regions.forEach((_, i) => {
         const constraintName = `only_one_week_r${i}`;
         model.constraints[constraintName] = { max: 1 };
@@ -962,7 +1091,6 @@ calculateMultiRegionPenalty = (regions, algorithmType, userData, algorithmParame
 
     return allocation;
 };
-
 
 
 
