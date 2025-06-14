@@ -11,7 +11,7 @@ import * as turf from '@turf/turf';
 
 const App = () => {
   const [fileRetrieved, setFileRetrieved] = useState([]);
-  const { countries, setCountries, setResults, userData, recommendationType, algorithmUsed, refresh, algorithmParameters} = useTravelRecommenderStore();
+  const { countries, setCountries, setResults, results, userData, recommendationType, algorithmUsed, refresh, algorithmParameters} = useTravelRecommenderStore();
   const load = () => {
     const loadCountriesTask = new LoadCountriesTask();
     loadCountriesTask.load(setFileRetrieved);

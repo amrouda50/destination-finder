@@ -318,7 +318,7 @@ class LoadCountriesTask {
     }
     else if (type === "composite") {
       if (!this.isOptimizing) { 
-      this.optimizeAndEvaluate(this.mapCountries)
+      // this.optimizeAndEvaluate(this.mapCountries)
       } else{
         console.log("already optimizing")
       }
@@ -346,7 +346,6 @@ class LoadCountriesTask {
         this.isOptimizing = true;
         console.log("Starting optimization...");
         const startTime = performance.now();
-        
         // Initialize tuner with configuration
         const tuner = new HyperparameterTuning(
             (...args) => this.greedyRecommendationAlgorithm.apply(this, args),
@@ -366,6 +365,7 @@ class LoadCountriesTask {
         try {
             console.log("Running hyperparameter tuning...");
             tuningResults = await tuner.findBestParameters(mapCountries);
+
             console.log("Hyperparameter tuning completed");
             
             await this.saveToJSON(
@@ -538,8 +538,7 @@ async saveToJSON(data, filename) {
     setResults(results.slice(0, 10));
   }
  
-
-  greedyRecommendationAlgorithm = (mapCountries, userData, setResults, algorithmParameters) => {
+greedyRecommendationAlgorithm = (mapCountries, userData, setResults, algorithmParameters) => {
     // Initial sort by total score
     mapCountries.sort((a, b) =>
         b.properties.result.scores.totalScore - a.properties.result.scores.totalScore
@@ -555,6 +554,9 @@ async saveToJSON(data, filename) {
 
     // Select first region
     budget -= mapCountries[0].properties.result.price;
+    // Store penalized score for first region (no penalty for first selection)
+    mapCountries[0].properties.result.scores.penalizedScore = 
+        mapCountries[0].properties.result.scores.totalScore;
     selectedRegions.push(mapCountries[0]);
 
     while (true) {
@@ -577,9 +579,10 @@ async saveToJSON(data, filename) {
                     'greedy',
                     userData,
                     algorithmParameters
-                );
-
+                );          
+                
                 score *= penaltyFactor;
+                // Store penalized score in the candidate's properties
                 candidate.properties.result.scores.penalizedScore = score;
                 return candidate;
             })
@@ -597,7 +600,7 @@ async saveToJSON(data, filename) {
         budget -= bestCandidate.properties.result.price;
         selectedRegions.push(bestCandidate);
     }
-
+    
     // Allocate weeks using ILP with new parameter structure
     const allocatedRegions = this.allocateWeeksILP(
         selectedRegions,
@@ -607,9 +610,14 @@ async saveToJSON(data, filename) {
         algorithmParameters
     );
 
+    // Include penalized score in the final results
     setResults(
         allocatedRegions.map(({ region, weeks }) => ({
             ...region.properties.result,
+            scores: {
+                ...region.properties.result.scores,
+                penalizedScore: region.properties.result.scores.penalizedScore
+            },
             allocatedWeeks: weeks
         }))
     );
@@ -617,336 +625,363 @@ async saveToJSON(data, filename) {
 
 
 geneticRecommendationAlgorithm = (mapCountries, userData, setResults, algorithmParameters) => {
-  // Get genetic-specific parameters
-  const geneticParams = algorithmParameters.genetic;
-  const populationSize = geneticParams.populationSize;
-  const generations = geneticParams.generations;
-  const mutationRate = geneticParams.mutationRate;
-  const tournamentSize = geneticParams.tournamentSize;
+    // Get genetic-specific parameters
+    const geneticParams = algorithmParameters.genetic;
+    const populationSize = geneticParams.populationSize;
+    const generations = geneticParams.generations;
+    const mutationRate = geneticParams.mutationRate;
+    const tournamentSize = geneticParams.tournamentSize;
 
-  // Budget calculation
-  let numberOfWeeks = Math.round(1 + userData.Weeks / 5);
-  let budgetPerWeek = userData.Budget === 0 ? 225 : userData.Budget === 50 ? 450 : 900;
-  let totalBudget = budgetPerWeek * numberOfWeeks;
+    // Budget calculation
+    let numberOfWeeks = Math.round(1 + userData.Weeks / 5);
+    let budgetPerWeek = userData.Budget === 0 ? 225 : userData.Budget === 50 ? 450 : 900;
+    let totalBudget = budgetPerWeek * numberOfWeeks;
 
-  const maxRegions = mapCountries.length;
+    const maxRegions = mapCountries.length;
 
-  // Initialize population
-  const initializePopulation = () => {
-      const population = [];
-      for (let i = 0; i < populationSize; i++) {
-          const chromosome = [];
-          const usedIndices = new Set();
-          const length = Math.floor(Math.random() * maxRegions) + 1;
+    // Initialize population
+    const initializePopulation = () => {
+        const population = [];
+        for (let i = 0; i < populationSize; i++) {
+            const chromosome = [];
+            const usedIndices = new Set();
+            const length = Math.floor(Math.random() * maxRegions) + 1;
 
-          while (chromosome.length < length) {
-              const index = Math.floor(Math.random() * mapCountries.length);
-              if (!usedIndices.has(index)) {
-                  usedIndices.add(index);
-                  chromosome.push(mapCountries[index]);
-              }
-          }
-          population.push(chromosome);
-      }
-      return population;
-  };
+            while (chromosome.length < length) {
+                const index = Math.floor(Math.random() * mapCountries.length);
+                if (!usedIndices.has(index)) {
+                    usedIndices.add(index);
+                    chromosome.push(mapCountries[index]);
+                }
+            }
+            population.push(chromosome);
+        }
+        return population;
+    };
 
-  // Penalty computation using new parameter structure
-  const computePenalty = (chromosome) => {
-      return this.calculateMultiRegionPenalty(
-          chromosome,
-          'genetic',
-          userData,
-          algorithmParameters
-      );
-  };
+    // Penalty computation using new parameter structure
+    const computePenalty = (chromosome) => {
+        return this.calculateMultiRegionPenalty(
+            chromosome,
+            'genetic',
+            userData,
+            algorithmParameters
+        );
+    };
 
-  // Fitness computation
-  const computeFitness = (chromosome) => {
-      let totalAttr = 0,
-          budgetScore = 0,
-          travelMonthScore = 0,
-          visitorScore = 0,
-          totalCost = 0;
+    // Fitness computation with penalized scores
+    const computeFitness = (chromosome) => {
+        let totalAttr = 0,
+            budgetScore = 0,
+            travelMonthScore = 0,
+            visitorScore = 0,
+            totalCost = 0;
 
-      for (const region of chromosome) {
-          const scores = region.properties.result.scores;
-          totalAttr += (scores.totalAttrScore.score) / (scores.totalAttrScore.weight) || 0;
-          budgetScore += scores.budgetScore || 0;
-          travelMonthScore += scores.travelMonthScore || 0;
-          visitorScore += scores.visitorScore || 0;
-          totalCost += region.properties.result.price || 0;
-      }
+        for (const region of chromosome) {
+            const scores = region.properties.result.scores;
+            totalAttr += (scores.totalAttrScore.score) / (scores.totalAttrScore.weight) || 0;
+            budgetScore += scores.budgetScore || 0;
+            travelMonthScore += scores.travelMonthScore || 0;
+            visitorScore += scores.visitorScore || 0;
+            totalCost += region.properties.result.price || 0;
+        }
 
-      if (totalCost > totalBudget) return -Infinity;
+        if (totalCost > totalBudget) return -Infinity;
 
-      const penalty = computePenalty(chromosome);
-      return (totalAttr + budgetScore + travelMonthScore + visitorScore) * penalty;
-  };
+        const penalty = computePenalty(chromosome);
+        const fitness = (totalAttr + budgetScore + travelMonthScore + visitorScore) * penalty;
 
-  // Tournament selection
-  const tournamentSelection = (population, fitnesses) => {
-      const candidates = [];
-      for (let i = 0; i < tournamentSize; i++) {
-          const idx = Math.floor(Math.random() * population.length);
-          candidates.push({ chromosome: population[idx], fitness: fitnesses[idx] });
-      }
-      candidates.sort((a, b) => b.fitness - a.fitness);
-      return candidates[0].chromosome;
-  };
+        // Store penalized scores for each region in the chromosome
+        chromosome.forEach(region => {
+            const baseScore = region.properties.result.scores.totalScore;
+            region.properties.result.scores.penalizedScore = baseScore * penalty;
+        });
 
-  // Crossover
-  const crossover = (parent1, parent2) => {
-      const child = [];
-      const usedNames = new Set();
+        return fitness;
+    };
 
-      const combined = [...parent1, ...parent2].filter(
-          (region, idx, self) =>
-              !usedNames.has(region.properties.name) && (usedNames.add(region.properties.name) || true)
-      );
+    // Tournament selection
+    const tournamentSelection = (population, fitnesses) => {
+        const candidates = [];
+        for (let i = 0; i < tournamentSize; i++) {
+            const idx = Math.floor(Math.random() * population.length);
+            candidates.push({ chromosome: population[idx], fitness: fitnesses[idx] });
+        }
+        candidates.sort((a, b) => b.fitness - a.fitness);
+        return candidates[0].chromosome;
+    };
 
-      const length = Math.floor(Math.random() * combined.length) + 1;
-      for (let i = 0; i < length; i++) {
-          child.push(combined[i]);
-      }
+    // Crossover
+    const crossover = (parent1, parent2) => {
+        const child = [];
+        const usedNames = new Set();
 
-      return child;
-  };
+        const combined = [...parent1, ...parent2].filter(
+            (region, idx, self) =>
+                !usedNames.has(region.properties.name) && (usedNames.add(region.properties.name) || true)
+        );
 
-  // Mutation
-  const mutate = (chromosome) => {
-      if (Math.random() < mutationRate && chromosome.length > 0) {
-          const idxToReplace = Math.floor(Math.random() * chromosome.length);
-          let replacement;
-          const existingNames = new Set(chromosome.map(r => r.properties.name));
+        const length = Math.floor(Math.random() * combined.length) + 1;
+        for (let i = 0; i < length; i++) {
+            child.push(combined[i]);
+        }
 
-          do {
-              replacement = mapCountries[Math.floor(Math.random() * mapCountries.length)];
-          } while (existingNames.has(replacement.properties.name));
+        return child;
+    };
 
-          chromosome[idxToReplace] = replacement;
-      }
-      return chromosome;
-  };
+    // Mutation
+    const mutate = (chromosome) => {
+        if (Math.random() < mutationRate && chromosome.length > 0) {
+            const idxToReplace = Math.floor(Math.random() * chromosome.length);
+            let replacement;
+            const existingNames = new Set(chromosome.map(r => r.properties.name));
 
-  // Main GA Loop
-  let population = initializePopulation();
-  let bestSolution = null;
-  let bestFitness = -Infinity;
+            do {
+                replacement = mapCountries[Math.floor(Math.random() * mapCountries.length)];
+            } while (existingNames.has(replacement.properties.name));
 
-  for (let gen = 0; gen < generations; gen++) {
-      const fitnesses = population.map(chr => computeFitness(chr));
-      const newPopulation = [];
+            chromosome[idxToReplace] = replacement;
+        }
+        return chromosome;
+    };
 
-      // Update best solution
-      const currentBestIndex = fitnesses.indexOf(Math.max(...fitnesses));
-      if (fitnesses[currentBestIndex] > bestFitness) {
-          bestFitness = fitnesses[currentBestIndex];
-          bestSolution = [...population[currentBestIndex]];
-      }
+    // Main GA Loop
+    let population = initializePopulation();
+    let bestSolution = null;
+    let bestFitness = -Infinity;
 
-      // Elitism
-      newPopulation.push([...population[currentBestIndex]]);
+    for (let gen = 0; gen < generations; gen++) {
+        const fitnesses = population.map(chr => computeFitness(chr));
+        const newPopulation = [];
 
-      // Generate new population
-      while (newPopulation.length < populationSize) {
-          const parent1 = tournamentSelection(population, fitnesses);
-          const parent2 = tournamentSelection(population, fitnesses);
-          let child = crossover(parent1, parent2);
-          child = mutate(child);
-          newPopulation.push(child);
-      }
+        // Update best solution
+        const currentBestIndex = fitnesses.indexOf(Math.max(...fitnesses));
+        if (fitnesses[currentBestIndex] > bestFitness) {
+            bestFitness = fitnesses[currentBestIndex];
+            bestSolution = [...population[currentBestIndex]];
+            // Recompute fitness for best solution to ensure penalized scores are stored
+            computeFitness(bestSolution);
+        }
 
-      population = newPopulation;
-  }
+        // Elitism
+        newPopulation.push([...population[currentBestIndex]]);
 
-  // Use best solution found
-  const bestChromosome = bestSolution;
+        // Generate new population
+        while (newPopulation.length < populationSize) {
+            const parent1 = tournamentSelection(population, fitnesses);
+            const parent2 = tournamentSelection(population, fitnesses);
+            let child = crossover(parent1, parent2);
+            child = mutate(child);
+            newPopulation.push(child);
+        }
 
-  // Week allocation using new parameter structure
-  const allocatedRegions = this.allocateWeeksILP(
-      bestChromosome,
-      numberOfWeeks,
-      'genetic',
-      userData,
-      algorithmParameters
-  );
+        population = newPopulation;
+    }
 
-  setResults(
-      allocatedRegions.map(({ region, weeks }) => ({
-          ...region.properties.result,
-          allocatedWeeks: weeks,
-      }))
-  );
+    // Use best solution found
+    const bestChromosome = bestSolution;
+
+    // Week allocation using new parameter structure
+    const allocatedRegions = this.allocateWeeksILP(
+        bestChromosome,
+        numberOfWeeks,
+        'genetic',
+        userData,
+        algorithmParameters
+    );
+
+    // Include penalized scores in the final results
+    setResults(
+        allocatedRegions.map(({ region, weeks }) => ({
+            ...region.properties.result,
+            scores: {
+                ...region.properties.result.scores,
+                penalizedScore: region.properties.result.scores.penalizedScore
+            },
+            allocatedWeeks: weeks,
+        }))
+    );
 };
   
   
 dynamicDPDominanceRecommendation = (mapCountries, userData, setResults, algorithmParameters) => {
-  // Get dynamic-specific parameters
-  const dynamicParams = algorithmParameters.dynamic;
-  const { alpha, attributes } = dynamicParams.dominance;
+    // Get dynamic-specific parameters
+    const dynamicParams = algorithmParameters.dynamic;
+    const { alpha, attributes } = dynamicParams.dominance;
 
-  // Helper functions converted to arrow functions for proper 'this' binding
-  const getAttributeScore = (scoresObj, att) => {
-      const val = scoresObj[att];
-      if (val && typeof val === 'object' && 'score' in val && 'weight' in val && val.weight !== 0) {
-          return val.score / val.weight;
-      }
-      if (val && typeof val === 'object' && 'score' in val) {
-          return val.score;
-      }
-      return val;
-  };
+    // Helper functions converted to arrow functions for proper 'this' binding
+    const getAttributeScore = (scoresObj, att) => {
+        const val = scoresObj[att];
+        if (val && typeof val === 'object' && 'score' in val && 'weight' in val && val.weight !== 0) {
+            return val.score / val.weight;
+        }
+        if (val && typeof val === 'object' && 'score' in val) {
+            return val.score;
+        }
+        return val;
+    };
 
-  const strictlyDominatedRegions = (regionArray, attributes) => {
-      const dominatedIdx = new Set();
-      for (let i = 0; i < regionArray.length; i++) {
-          for (let j = 0; j < regionArray.length; j++) {
-              if (i === j) continue;
-              let all_le = true, one_strict_less = false;
-              for (const attr of attributes) {
-                  let ai = getAttributeScore(regionArray[i].properties.result.scores, attr);
-                  let aj = getAttributeScore(regionArray[j].properties.result.scores, attr);
-                  if (ai > aj) all_le = false;
-                  if (ai < aj) one_strict_less = true;
-              }
-              if (all_le && one_strict_less) {
-                  dominatedIdx.add(i);
-                  break;
-              }
-          }
-      }
-      return dominatedIdx;
-  };
+    const strictlyDominatedRegions = (regionArray, attributes) => {
+        const dominatedIdx = new Set();
+        for (let i = 0; i < regionArray.length; i++) {
+            for (let j = 0; j < regionArray.length; j++) {
+                if (i === j) continue;
+                let all_le = true, one_strict_less = false;
+                for (const attr of attributes) {
+                    let ai = getAttributeScore(regionArray[i].properties.result.scores, attr);
+                    let aj = getAttributeScore(regionArray[j].properties.result.scores, attr);
+                    if (ai > aj) all_le = false;
+                    if (ai < aj) one_strict_less = true;
+                }
+                if (all_le && one_strict_less) {
+                    dominatedIdx.add(i);
+                    break;
+                }
+            }
+        }
+        return dominatedIdx;
+    };
 
-  const customDominanceScores = (regionArray, attributes) => {
-      // Excellence Count calculation
-      const ec = regionArray.map(_ => attributes.map(_ => 0));
-      for (let a = 0; a < attributes.length; a++) {
-          for (let i = 0; i < regionArray.length; i++) {
-              for (let j = 0; j < regionArray.length; j++) {
-                  if (i === j) continue;
-                  let ai = getAttributeScore(regionArray[i].properties.result.scores, attributes[a]);
-                  let aj = getAttributeScore(regionArray[j].properties.result.scores, attributes[a]);
-                  if (ai > aj) ec[i][a]++;
-              }
-          }
-          let maxCount = Math.max(...ec.map(row => row[a]));
-          if (maxCount !== 0) {
-              for (let i = 0; i < regionArray.length; i++) {
-                  ec[i][a] /= maxCount;
-              }
-          }
-      }
-      const ecPerf = ec.map(arr => arr.reduce((a, b) => a + b, 0) / arr.length);
+    const customDominanceScores = (regionArray, attributes) => {
+        // Excellence Count calculation
+        const ec = regionArray.map(_ => attributes.map(_ => 0));
+        for (let a = 0; a < attributes.length; a++) {
+            for (let i = 0; i < regionArray.length; i++) {
+                for (let j = 0; j < regionArray.length; j++) {
+                    if (i === j) continue;
+                    let ai = getAttributeScore(regionArray[i].properties.result.scores, attributes[a]);
+                    let aj = getAttributeScore(regionArray[j].properties.result.scores, attributes[a]);
+                    if (ai > aj) ec[i][a]++;
+                }
+            }
+            let maxCount = Math.max(...ec.map(row => row[a]));
+            if (maxCount !== 0) {
+                for (let i = 0; i < regionArray.length; i++) {
+                    ec[i][a] /= maxCount;
+                }
+            }
+        }
+        const ecPerf = ec.map(arr => arr.reduce((a, b) => a + b, 0) / arr.length);
 
-      // Dominance Degree calculation
-      const dd = regionArray.map(_ => attributes.map(_ => 0));
-      for (let a = 0; a < attributes.length; a++) {
-          for (let i = 0; i < regionArray.length; i++) {
-              for (let j = 0; j < regionArray.length; j++) {
-                  if (i === j) continue;
-                  let ai = getAttributeScore(regionArray[i].properties.result.scores, attributes[a]);
-                  let aj = getAttributeScore(regionArray[j].properties.result.scores, attributes[a]);
-                  if (ai > aj) dd[i][a] += (ai - aj);
-              }
-          }
-          let maxDom = Math.max(...dd.map(row => row[a]));
-          if (maxDom !== 0) {
-              for (let i = 0; i < regionArray.length; i++) {
-                  dd[i][a] /= maxDom;
-              }
-          }
-      }
-      const ddPerf = dd.map(arr => arr.reduce((a, b) => a + b, 0) / arr.length);
+        // Dominance Degree calculation
+        const dd = regionArray.map(_ => attributes.map(_ => 0));
+        for (let a = 0; a < attributes.length; a++) {
+            for (let i = 0; i < regionArray.length; i++) {
+                for (let j = 0; j < regionArray.length; j++) {
+                    if (i === j) continue;
+                    let ai = getAttributeScore(regionArray[i].properties.result.scores, attributes[a]);
+                    let aj = getAttributeScore(regionArray[j].properties.result.scores, attributes[a]);
+                    if (ai > aj) dd[i][a] += (ai - aj);
+                }
+            }
+            let maxDom = Math.max(...dd.map(row => row[a]));
+            if (maxDom !== 0) {
+                for (let i = 0; i < regionArray.length; i++) {
+                    dd[i][a] /= maxDom;
+                }
+            }
+        }
+        const ddPerf = dd.map(arr => arr.reduce((a, b) => a + b, 0) / arr.length);
 
-      // Composite Score using alpha parameter
-      const composite = regionArray.map((_, i) => alpha * ecPerf[i] + (1 - alpha) * ddPerf[i]);
-      return composite.map((score, idx) => ({ idx, score }))
-          .sort((a, b) => b.score - a.score);
-  };
+        // Composite Score using alpha parameter
+        const composite = regionArray.map((_, i) => alpha * ecPerf[i] + (1 - alpha) * ddPerf[i]);
+        return composite.map((score, idx) => ({ idx, score }))
+            .sort((a, b) => b.score - a.score);
+    };
 
-  // Budget calculation
-  let numberOfWeeks = Math.round(1 + userData.Weeks / 5);
-  let budget = userData.Budget === 0 ? 225 * numberOfWeeks :
-              userData.Budget === 50 ? 450 * numberOfWeeks :
-              900 * numberOfWeeks;
+    // Budget calculation
+    let numberOfWeeks = Math.round(1 + userData.Weeks / 5);
+    let budget = userData.Budget === 0 ? 225 * numberOfWeeks :
+                userData.Budget === 50 ? 450 * numberOfWeeks :
+                900 * numberOfWeeks;
 
-  // Initial sorting
-  mapCountries.sort((a, b) =>
-      b.properties.result.scores.totalScore - a.properties.result.scores.totalScore
-  );
+    // Initial sorting
+    mapCountries.sort((a, b) =>
+        b.properties.result.scores.totalScore - a.properties.result.scores.totalScore
+    );
 
-  // Iterative Selection
-  let selectedRegions = [];
-  let availableRegions = [...mapCountries];
-  let currentBudget = budget;
+    // Store initial penalized score for first region
+    mapCountries[0].properties.result.scores.penalizedScore = 
+        mapCountries[0].properties.result.scores.totalScore;
 
-  // Select first region
-  selectedRegions.push(availableRegions[0]);
-  currentBudget -= availableRegions[0].properties.result.price;
-  availableRegions.splice(0, 1);
+    // Iterative Selection
+    let selectedRegions = [];
+    let availableRegions = [...mapCountries];
+    let currentBudget = budget;
 
-  // Main selection loop
-  while (true) {
-      // Dominance pruning
-      let dominated = strictlyDominatedRegions(availableRegions, attributes);
-      let filteredRegions = availableRegions.filter((_, idx) => !dominated.has(idx));
-      if (filteredRegions.length === 0) break;
+    // Select first region
+    selectedRegions.push(availableRegions[0]);
+    currentBudget -= availableRegions[0].properties.result.price;
+    availableRegions.splice(0, 1);
 
-      // Budget filtering
-      let affordable = filteredRegions.filter(r => r.properties.result.price <= currentBudget);
-      if (affordable.length === 0) break;
+    // Main selection loop
+    while (true) {
+        // Dominance pruning
+        let dominated = strictlyDominatedRegions(availableRegions, attributes);
+        let filteredRegions = availableRegions.filter((_, idx) => !dominated.has(idx));
+        if (filteredRegions.length === 0) break;
 
-      // Apply penalties
-      affordable.forEach(candidate => {
-          const tempRegions = [...selectedRegions, candidate];
-          const totalPenalty = this.calculateMultiRegionPenalty(
-              tempRegions,
-              'dynamic',
-              userData,
-              algorithmParameters
-          );
+        // Budget filtering
+        let affordable = filteredRegions.filter(r => r.properties.result.price <= currentBudget);
+        if (affordable.length === 0) break;
 
-          // Apply penalty to scores
-          for (const attr of attributes) {
-              let originalScore = candidate.properties.result.scores[attr];
-              if (typeof originalScore === 'number') {
-                  candidate.properties.result.scores[attr] = originalScore * totalPenalty;
-              }
-          }
-      });
+        // Apply penalties
+        affordable.forEach(candidate => {
+            const tempRegions = [...selectedRegions, candidate];
+            const totalPenalty = this.calculateMultiRegionPenalty(
+                tempRegions,
+                'dynamic',
+                userData,
+                algorithmParameters
+            );
 
-      // Select best candidate using dominance
-      let candidates = affordable.length >= 2 ?
-          [affordable[customDominanceScores(affordable, attributes)[0].idx]] :
-          affordable;
+            // Store penalized score
+            candidate.properties.result.scores.penalizedScore = 
+                candidate.properties.result.scores.totalScore * totalPenalty;
 
-      if (candidates.length === 0) break;
+            // Apply penalty to scores
+            for (const attr of attributes) {
+                let originalScore = candidate.properties.result.scores[attr];
+                if (typeof originalScore === 'number') {
+                    candidate.properties.result.scores[attr] = originalScore * totalPenalty;
+                }
+            }
+        });
 
-      // Update selections
-      const toAdd = candidates[0];
-      currentBudget -= toAdd.properties.result.price;
-      selectedRegions.push(toAdd);
-      availableRegions = availableRegions.filter(r => r !== toAdd);
-  }
+        // Select best candidate using dominance
+        let candidates = affordable.length >= 2 ?
+            [affordable[customDominanceScores(affordable, attributes)[0].idx]] :
+            affordable;
 
-  // Week allocation using new parameter structure
-  const allocatedRegions = this.allocateWeeksILP(
-      selectedRegions,
-      numberOfWeeks,
-      'dynamic',
-      userData,
-      algorithmParameters
-  );
+        if (candidates.length === 0) break;
 
-  // Set results
-  setResults(
-      allocatedRegions.map(({ region, weeks }) => ({
-          ...region.properties.result,
-          allocatedWeeks: weeks
-      }))
-  );
+        // Update selections
+        const toAdd = candidates[0];
+        currentBudget -= toAdd.properties.result.price;
+        selectedRegions.push(toAdd);
+        availableRegions = availableRegions.filter(r => r !== toAdd);
+    }
+
+    // Week allocation using new parameter structure
+    const allocatedRegions = this.allocateWeeksILP(
+        selectedRegions,
+        numberOfWeeks,
+        'dynamic',
+        userData,
+        algorithmParameters
+    );
+
+    // Set results with penalized scores
+    setResults(
+        allocatedRegions.map(({ region, weeks }) => ({
+            ...region.properties.result,
+            scores: {
+                ...region.properties.result.scores,
+                penalizedScore: region.properties.result.scores.penalizedScore
+            },
+            allocatedWeeks: weeks
+        }))
+    );
 };
 
 
@@ -994,7 +1029,6 @@ dynamicDPDominanceRecommendation = (mapCountries, userData, setResults, algorith
 
 calculateMultiRegionPenalty = (regions, algorithmType, userData, algorithmParameters) => {
     let totalPenalty = 1.0;
-    
     for (let i = 0; i < regions.length; i++) {
         for (let j = i + 1; j < regions.length; j++) {
             const dist = haversine(
@@ -1007,12 +1041,10 @@ calculateMultiRegionPenalty = (regions, algorithmType, userData, algorithmParame
                     longitude: regions[j].geometry.centroid.geometry.coordinates[0],
                 }
             );
-            
             const penalty = this.calculateDistanceDecay(dist, algorithmType, userData, algorithmParameters);
             totalPenalty *= penalty;
         }
     }
-    
     return totalPenalty;
 };
 

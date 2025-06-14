@@ -2,48 +2,148 @@
     "scenarios": [
       {
         "name": "Budget Traveler, Long Trip",
+        "isPriceImportant": true,
         "Budget": 0,
         "Weeks": 60,
         "Distance": 50,
         "isDistanceNotImportant": false,
         "weekAllocationDistribution": 50,
+        "Months": [100, 100, 0, 0, 0, 0, 0, 0, 100, 100, 100, 100],
+        "PresetType": [],
+        "isPeakSeasonImportant": false,
+        "isVisitorIndexImportant": true,
+        "VisitorIndex": {
+            "weight": 1,
+            "score": 30
+        },
+        "Attributes": {
+            "Nature": { "weight": 1, "score": 70 },
+            "Architecture": { "weight": 1, "score": 50 },
+            "Hiking": { "weight": 1, "score": 70 },
+            "Wintersports": { "weight": 1, "score": 30 },
+            "Beach": { "weight": 1, "score": 50 },
+            "Culture": { "weight": 1, "score": 60 },
+            "Culinary": { "weight": 1, "score": 40 },
+            "Entertainment": { "weight": 1, "score": 30 },
+            "Shopping": { "weight": 1, "score": 20 }
+        },
         "description": "Tests algorithm performance for budget-conscious travelers on extended trips"
       },
       {
         "name": "Luxury Traveler, Short Trip",
+        "isPriceImportant": false,
         "Budget": 100,
         "Weeks": 15,
         "Distance": 30,
         "isDistanceNotImportant": true,
         "weekAllocationDistribution": 80,
+        "Months": [0, 0, 0, 0, 0, 100, 100, 100, 0, 0, 0, 0],
+        "PresetType": [],
+        "isPeakSeasonImportant": true,
+        "isVisitorIndexImportant": true,
+        "VisitorIndex": {
+            "weight": 1,
+            "score": 70
+        },
+        "Attributes": {
+            "Nature": { "weight": 1, "score": 40 },
+            "Architecture": { "weight": 1, "score": 80 },
+            "Hiking": { "weight": 1, "score": 30 },
+            "Wintersports": { "weight": 1, "score": 60 },
+            "Beach": { "weight": 1, "score": 80 },
+            "Culture": { "weight": 1, "score": 80 },
+            "Culinary": { "weight": 1, "score": 90 },
+            "Entertainment": { "weight": 1, "score": 90 },
+            "Shopping": { "weight": 1, "score": 90 }
+        },
         "description": "Tests algorithm performance for luxury travelers with flexible budgets"
       },
       {
         "name": "Mid-Range, Distance Sensitive",
+        "isPriceImportant": true,
         "Budget": 50,
         "Weeks": 30,
         "Distance": 90,
         "isDistanceNotImportant": false,
         "weekAllocationDistribution": 30,
+        "Months": [0, 0, 100, 100, 100, 0, 0, 0, 100, 100, 0, 0],
+        "PresetType": [],
+        "isPeakSeasonImportant": false,
+        "isVisitorIndexImportant": true,
+        "VisitorIndex": {
+            "weight": 1,
+            "score": 50
+        },
+        "Attributes": {
+            "Nature": { "weight": 1, "score": 60 },
+            "Architecture": { "weight": 1, "score": 60 },
+            "Hiking": { "weight": 1, "score": 50 },
+            "Wintersports": { "weight": 1, "score": 50 },
+            "Beach": { "weight": 1, "score": 50 },
+            "Culture": { "weight": 1, "score": 60 },
+            "Culinary": { "weight": 1, "score": 50 },
+            "Entertainment": { "weight": 1, "score": 50 },
+            "Shopping": { "weight": 1, "score": 50 }
+        },
         "description": "Tests algorithm behavior with distance constraints"
       },
       {
-        "name": "Balanced Multi-Region",
+        "name": "Cultural Explorer",
+        "isPriceImportant": false,
         "Budget": 50,
         "Weeks": 45,
         "Distance": 50,
         "isDistanceNotImportant": false,
         "weekAllocationDistribution": 50,
-        "description": "Tests balanced distribution across multiple regions"
+        "Months": [0, 0, 0, 100, 100, 100, 0, 0, 100, 100, 100, 0],
+        "PresetType": ["Culture"],
+        "isPeakSeasonImportant": false,
+        "isVisitorIndexImportant": true,
+        "VisitorIndex": {
+            "weight": 1,
+            "score": 40
+        },
+        "Attributes": {
+            "Nature": { "weight": 1, "score": 30 },
+            "Architecture": { "weight": 1, "score": 90 },
+            "Hiking": { "weight": 1, "score": 30 },
+            "Wintersports": { "weight": 1, "score": 20 },
+            "Beach": { "weight": 1, "score": 30 },
+            "Culture": { "weight": 1, "score": 100 },
+            "Culinary": { "weight": 1, "score": 80 },
+            "Entertainment": { "weight": 1, "score": 60 },
+            "Shopping": { "weight": 1, "score": 50 }
+        },
+        "description": "Tests algorithm optimization for cultural preferences"
       },
       {
-        "name": "Extreme Distance Preference",
-        "Budget": 100,
+        "name": "Adventure Seeker",
+        "isPriceImportant": false,
+        "Budget": 70,
         "Weeks": 30,
         "Distance": 100,
         "isDistanceNotImportant": false,
         "weekAllocationDistribution": 70,
-        "description": "Tests algorithm behavior with maximum distance importance"
+        "Months": [100, 100, 100, 100, 0, 0, 0, 0, 0, 0, 100, 100],
+        "PresetType": ["Nature", "Hiking"],
+        "isPeakSeasonImportant": false,
+        "isVisitorIndexImportant": true,
+        "VisitorIndex": {
+            "weight": 1,
+            "score": 20
+        },
+        "Attributes": {
+            "Nature": { "weight": 1, "score": 100 },
+            "Architecture": { "weight": 1, "score": 30 },
+            "Hiking": { "weight": 1, "score": 100 },
+            "Wintersports": { "weight": 1, "score": 80 },
+            "Beach": { "weight": 1, "score": 50 },
+            "Culture": { "weight": 1, "score": 30 },
+            "Culinary": { "weight": 1, "score": 30 },
+            "Entertainment": { "weight": 1, "score": 20 },
+            "Shopping": { "weight": 1, "score": 20 }
+        },
+        "description": "Tests algorithm behavior with extreme nature and adventure preferences"
       }
     ]
-  }
+}

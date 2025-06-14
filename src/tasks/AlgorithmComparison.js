@@ -29,7 +29,6 @@ export class AlgorithmComparison {
           }
       };
 
-      console.log(algorithmParams)
 
 
       // Run comparison for each scenario
@@ -51,6 +50,7 @@ export class AlgorithmComparison {
                   );
                   
                   const endTime = performance.now();
+                    
                   
                   // Calculate metrics
                   results[scenario.name][algoName] = {
@@ -79,6 +79,8 @@ export class AlgorithmComparison {
   };
 
     calculateMetrics = (algorithmResults) => {
+        // debugger
+        // console.log(algorithmType)
         if (!algorithmResults || algorithmResults.length === 0) {
             return {
                 averageTripCost: 0,
@@ -91,10 +93,10 @@ export class AlgorithmComparison {
         }
 
         try {
-            const totalCost = algorithmResults.reduce((sum, r) => sum + r.price, 0);
+            const totalCost = algorithmResults.reduce((sum, r) => sum + (r.price * r.allocatedWeeks), 0);
             const totalWeeks = algorithmResults.reduce((sum, r) => sum + r.allocatedWeeks, 0);
-            const totalScore = algorithmResults.reduce((sum, r) => sum + r.scores.totalScore, 0);
-
+            const totalScore = algorithmResults.reduce((sum, r) => sum + r.scores.penalizedScore, 0);
+            // console.log(algorithmResults)
             // Calculate total distance between consecutive regions
             let totalDistance = 0;
             for (let i = 0; i < algorithmResults.length - 1; i++) {
