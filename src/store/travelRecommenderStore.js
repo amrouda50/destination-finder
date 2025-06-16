@@ -346,8 +346,8 @@ const useTravelRecommenderStore = create((set) => ({
                 scalingFunction: "linear",
                 penalties: {
                     dynamic: {
-                        minPenaltyRate: 0,
-                        maxPenaltyRate: 0.00004,
+                        minPenaltyRate: 0.00001,
+                        maxPenaltyRate: 0.000055,
                         description: "Moderate penalties for balanced approach in dynamic algorithm"
                     }
                 },
@@ -358,7 +358,7 @@ const useTravelRecommenderStore = create((set) => ({
                 }
             },
             weekAllocation: {
-                maxWeeksPerRegionRatio: 0.5,
+                maxWeeksPerRegionRatio: 0.3,
                 lambdaPenalty: {
                     percentage: true,
                     range: {

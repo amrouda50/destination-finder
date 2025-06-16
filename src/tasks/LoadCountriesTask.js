@@ -318,7 +318,7 @@ class LoadCountriesTask {
     }
     else if (type === "composite") {
       if (!this.isOptimizing) { 
-      this.optimizeAndEvaluate(this.mapCountries)
+      // this.optimizeAndEvaluate(this.mapCountries)
       } else{
         console.log("already optimizing")
       }
