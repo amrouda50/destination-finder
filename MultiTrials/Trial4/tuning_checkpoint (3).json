@@ -1,0 +1,5913 @@
+{
+  "checkpoint": "tuning",
+  "results": {
+    "bestParameters": {
+      "Genetic": {
+        "genetic": {
+          "populationSize": 20,
+          "generations": 100,
+          "mutationRate": 0.05,
+          "tournamentSize": 4,
+          "description": {
+            "populationSize": "Number of chromosomes in each generation",
+            "generations": "Number of evolution iterations",
+            "mutationRate": "Probability of mutation occurring",
+            "tournamentSize": "Number of candidates in tournament selection"
+          },
+          "distanceDecay": {
+            "strategy": "linear",
+            "penalties": {
+              "genetic": {
+                "minPenaltyRate": 0.00001,
+                "maxPenaltyRate": 0.00005
+              }
+            }
+          },
+          "weekAllocation": {
+            "maxWeeksPerRegionRatio": 0.5,
+            "lambdaPenalty": {
+              "scaling": 0.05
+            },
+            "penaltyFunction": "linear"
+          }
+        }
+      },
+      "Dynamic": {
+        "dynamic": {
+          "dominance": {
+            "alpha": 0.3,
+            "attributes": [
+              "budgetScore",
+              "totalAttrScore",
+              "travelMonthScore",
+              "visitorScore",
+              "penalizedScore"
+            ]
+          },
+          "distanceDecay": {
+            "strategy": "linear",
+            "penalties": {
+              "dynamic": {
+                "minPenaltyRate": 0,
+                "maxPenaltyRate": 0.00004
+              }
+            }
+          },
+          "weekAllocation": {
+            "maxWeeksPerRegionRatio": 0.7,
+            "lambdaPenalty": {
+              "scaling": 0.05
+            },
+            "penaltyFunction": "linear"
+          }
+        }
+      },
+      "Greedy": {
+        "greedy": {
+          "distanceDecay": {
+            "strategy": "linear",
+            "penalties": {
+              "greedy": {
+                "minPenaltyRate": 0.00001,
+                "maxPenaltyRate": 0.015
+              }
+            }
+          },
+          "weekAllocation": {
+            "maxWeeksPerRegionRatio": 0.7,
+            "lambdaPenalty": {
+              "scaling": 0.05
+            },
+            "penaltyFunction": "quadratic"
+          }
+        }
+      }
+    },
+    "allResults": {
+      "Genetic": [
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.05,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.391605387260377
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "exponential",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.92991347955755
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 21.613989488752132
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 21.296004740928755
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 21.264371898067086
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 21.186117660906667
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 21.034925505043066
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 20.95559557753037
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.05,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 20.72115487997997
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 20.51989400155045
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 200,
+            "mutationRate": 0.02,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 20.518651640406695
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 20.49359849092639
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 20.39322690911743
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 20.39121406731753
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 20.387451990440987
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 20.37157444788643
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 20.330010099470115
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 20.304819161834327
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 20.191718995926895
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 20.181305372561432
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 20.11476567243472
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 20.06442976580306
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 200,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 20.019032213562284
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.997590153718257
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.88550991690761
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.864858309207612
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.856594930172115
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.855570603197013
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.853476219356985
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.833993654725113
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.79207547345792
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.773439371062032
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.05,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.75149560652984
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.726184234691182
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.691965734064325
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.680214521268827
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.05,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.674027260967314
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.667412951134573
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.650161198771663
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.636011664811484
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.635064094170502
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.61600588425754
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.60675239730014
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.596704229230458
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.59071216311198
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.58268730078313
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.58103840262936
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.05,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.575673486642327
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.53747339838015
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.53442146119333
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.5248178371721
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 200,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.492862260676752
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 300,
+            "mutationRate": 0.02,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.45339782783713
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.4085498808109
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.37947708779976
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.367732741734045
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 200,
+            "mutationRate": 0.05,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.36017930334687
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.352956949644643
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 200,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.352340281736495
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.344850818382305
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 300,
+            "mutationRate": 0.05,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.338510881899943
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.31981683226424
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 300,
+            "mutationRate": 0.05,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.30380365961272
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.30353633717276
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 300,
+            "mutationRate": 0.02,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.284106472591453
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 200,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.27764259403408
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.255214751835705
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.227346541192208
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 200,
+            "mutationRate": 0.02,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.225002998665097
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.217852475074313
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.201954248278156
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.20000764360228
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 200,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.183522448450265
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.1645018279957
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.147858999534215
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.12045999251947
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.119319050290635
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 200,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.09907510090319
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 300,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.08429698000309
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.07564760761513
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 200,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.075444067474884
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.029891547971516
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.020850698923986
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.0199403766245
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.011530169584688
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 200,
+            "mutationRate": 0.02,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.008723054849014
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 100,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.0051136452688
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 300,
+            "mutationRate": 0.02,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 19.002829143784872
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 200,
+            "mutationRate": 0.05,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 19.00125936210481
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.98812494003433
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.982496550709993
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.979856774168116
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 300,
+            "mutationRate": 0.02,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.968707544309922
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.96217052564655
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 100,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "exponential",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.957212359627924
+        },
+        {
+          "parameters": {
+            "populationSize": 30,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.951758399754244
+        },
+        {
+          "parameters": {
+            "populationSize": 70,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "distanceDecay": {
+              "strategy": "exponential",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.94199529308466
+        },
+        {
+          "parameters": {
+            "populationSize": 20,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 3,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00003,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.91660208492527
+        },
+        {
+          "parameters": {
+            "populationSize": 50,
+            "generations": 300,
+            "mutationRate": 0.01,
+            "tournamentSize": 4,
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00005
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.91618935897342
+        }
+      ],
+      "Dynamic": [
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 24.344562123873608
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 24.097809837059145
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 24.083016693981314
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.800553686393332
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.787066669101222
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.752657096415483
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.682430384112653
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.656490142354535
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.584291679360252
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.57799791777111
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.54833560615777
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.48553901120643
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.43008367262708
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.311941481698426
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.303258633548364
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.301020274045847
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.287848089140862
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.265686055420087
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.265460532313334
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.26326689439704
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.24365726628543
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.2360888882337
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.204060585301107
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.19226354548776
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.173182986121184
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.13671482796081
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.12576966201517
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.087736352477776
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 23.01341117509549
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.936530569642912
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.88087323253024
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.8624582530832
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.853903952079925
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.796461240114624
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.769541943912937
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.760337238788406
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.747710875382882
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.743412855018324
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.70395556423906
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.670920570881226
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.65097026255619
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.646017695933118
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.517499323549487
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.503298548594312
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.500629016536674
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.497438706264766
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.490378390290864
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 22.464270154594644
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 22.45927833281551
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.436810605125675
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.42700577017385
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.426643045076673
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 22.426388840916893
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.424389833684124
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.40116345719187
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.392147895984692
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.387952785875914
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.37057127294791
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.36644637492078
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.341178820309857
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.318609348354705
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.314302808699686
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.289139044705642
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.25817591582886
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.25601814020693
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.229699186032335
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.214748913568155
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00002,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.21016696413364
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.208359527713654
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.20566156716859
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 22.20043746769502
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 22.1998007807681
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.5,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00007
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.1920457605226
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.19142722776802
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 22.186076127610868
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.17496373686445
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 22.14891113738015
+        },
+        {
+          "parameters": {
+            "dominance": {
+              "alpha": 0.3,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.000055
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 22.134561570025475
+        }
+      ],
+      "Greedy": [
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.1664219147249
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.161812256334407
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 19.15685434858138
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.82492833908751
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.8200435425056
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.819097905626375
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.819071861139783
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.817837358188207
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.81706505498388
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.817043046010053
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.814791681337788
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.814623684568357
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.814592552915677
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.814059808256452
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.81239158282446
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.811737456690274
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.809609305275565
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.808547180045316
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.80841192764069
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.808023978852663
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.80469839640372
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.802726847001548
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.801219449160367
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.800857182370162
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.79936933639314
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.79924283449595
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.2
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.79872037961465
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.706369733207808
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.703618294066185
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.703099322719776
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.703035142835652
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.702390842836042
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.702087631784103
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.70155376553297
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.700133857997034
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.69320606438117
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.69315002113725
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.69240559173138
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.3,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.689902392417014
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          },
+          "score": 18.689421981437455
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.68693181430678
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00005,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "exponential"
+            }
+          },
+          "score": 18.68106808129932
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.581601597400798
+        },
+        {
+          "parameters": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "linear"
+            }
+          },
+          "score": 18.57649734249451
+        }
+      ]
+    }
+  },
+  "timestamp": "2025-06-16T07:29:27.942Z"
+}

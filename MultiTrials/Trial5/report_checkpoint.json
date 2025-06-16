@@ -1,0 +1,196 @@
+{
+  "checkpoint": "report",
+  "report": {
+    "bestParameters": {
+      "Genetic": {
+        "genetic": {
+          "populationSize": 20,
+          "generations": 100,
+          "mutationRate": 0.01,
+          "tournamentSize": 2,
+          "description": {
+            "populationSize": "Number of chromosomes in each generation",
+            "generations": "Number of evolution iterations",
+            "mutationRate": "Probability of mutation occurring",
+            "tournamentSize": "Number of candidates in tournament selection"
+          },
+          "distanceDecay": {
+            "strategy": "linear",
+            "penalties": {
+              "genetic": {
+                "minPenaltyRate": 0.00001,
+                "maxPenaltyRate": 0.00007
+              }
+            }
+          },
+          "weekAllocation": {
+            "maxWeeksPerRegionRatio": 0.3,
+            "lambdaPenalty": {
+              "scaling": 0.1
+            },
+            "penaltyFunction": "quadratic"
+          }
+        }
+      },
+      "Dynamic": {
+        "dynamic": {
+          "dominance": {
+            "alpha": 0.3,
+            "attributes": [
+              "budgetScore",
+              "totalAttrScore",
+              "travelMonthScore",
+              "visitorScore",
+              "penalizedScore"
+            ]
+          },
+          "distanceDecay": {
+            "strategy": "linear",
+            "penalties": {
+              "dynamic": {
+                "minPenaltyRate": 0.00002,
+                "maxPenaltyRate": 0.00004
+              }
+            }
+          },
+          "weekAllocation": {
+            "maxWeeksPerRegionRatio": 0.7,
+            "lambdaPenalty": {
+              "scaling": 0.05
+            },
+            "penaltyFunction": "linear"
+          }
+        }
+      },
+      "Greedy": {
+        "greedy": {
+          "distanceDecay": {
+            "strategy": "linear",
+            "penalties": {
+              "greedy": {
+                "minPenaltyRate": 0.00001,
+                "maxPenaltyRate": 0.015
+              }
+            }
+          },
+          "weekAllocation": {
+            "maxWeeksPerRegionRatio": 0.7,
+            "lambdaPenalty": {
+              "scaling": 0.05
+            },
+            "penaltyFunction": "quadratic"
+          }
+        }
+      }
+    },
+    "parameterSensitivity": {
+      "Genetic": {
+        "populationSize": {
+          "variance": 0.2691504136335224,
+          "range": {
+            "min": 19.034353611792568,
+            "max": 21.3366674221023
+          }
+        },
+        "generations": {
+          "variance": 0.2691504136335224,
+          "range": {
+            "min": 19.034353611792568,
+            "max": 21.3366674221023
+          }
+        },
+        "mutationRate": {
+          "variance": 0.2691504136335224,
+          "range": {
+            "min": 19.034353611792568,
+            "max": 21.3366674221023
+          }
+        },
+        "tournamentSize": {
+          "variance": 0.2691504136335224,
+          "range": {
+            "min": 19.034353611792568,
+            "max": 21.3366674221023
+          }
+        },
+        "distanceDecay": {
+          "variance": 0.2691504136335224,
+          "range": {
+            "min": 19.034353611792568,
+            "max": 21.3366674221023
+          }
+        },
+        "weekAllocation": {
+          "variance": 0.2691504136335224,
+          "range": {
+            "min": 19.034353611792568,
+            "max": 21.3366674221023
+          }
+        }
+      },
+      "Dynamic": {
+        "dominance": {
+          "variance": 0.23986609041164528,
+          "range": {
+            "min": 22.558143615898945,
+            "max": 24.50745723724513
+          }
+        },
+        "distanceDecay": {
+          "variance": 0.23986609041164528,
+          "range": {
+            "min": 22.558143615898945,
+            "max": 24.50745723724513
+          }
+        },
+        "weekAllocation": {
+          "variance": 0.23986609041164528,
+          "range": {
+            "min": 22.558143615898945,
+            "max": 24.50745723724513
+          }
+        }
+      },
+      "Greedy": {
+        "distanceDecay": {
+          "variance": 0.016789879920058346,
+          "range": {
+            "min": 18.518745071231166,
+            "max": 19.172199985919278
+          }
+        },
+        "weekAllocation": {
+          "variance": 0.016789879920058346,
+          "range": {
+            "min": 18.518745071231166,
+            "max": 19.172199985919278
+          }
+        }
+      }
+    },
+    "statisticalSummary": {
+      "Genetic": {
+        "mean": 19.70521128644673,
+        "std": 0.5187970832931912,
+        "min": 19.034353611792568,
+        "max": 21.3366674221023,
+        "median": 19.597328186151177
+      },
+      "Dynamic": {
+        "mean": 23.250240271724465,
+        "std": 0.48976125858590047,
+        "min": 22.558143615898945,
+        "max": 24.50745723724513,
+        "median": 23.128103541051107
+      },
+      "Greedy": {
+        "mean": 18.773249357478985,
+        "std": 0.1295757690313214,
+        "min": 18.518745071231166,
+        "max": 19.172199985919278,
+        "median": 18.789835077778875
+      }
+    }
+  },
+  "timestamp": "2025-06-16T07:38:35.707Z"
+}

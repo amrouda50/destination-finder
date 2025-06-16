@@ -1,0 +1,572 @@
+{
+  "metadata": {
+    "timestamp": "2025-06-16T07:20:01.223Z",
+    "numberOfScenarios": 5,
+    "datasetSize": 163,
+    "performance": {
+      "executionTime": 129.78940000000037,
+      "memoryUsage": 58367528,
+      "status": "completed"
+    }
+  },
+  "hyperparameterTuning": {
+    "bestParameters": {
+      "Genetic": {
+        "genetic": {
+          "genetic": {
+            "populationSize": 20,
+            "generations": 200,
+            "mutationRate": 0.01,
+            "tournamentSize": 2,
+            "description": {
+              "populationSize": "Number of chromosomes in each generation",
+              "generations": "Number of evolution iterations",
+              "mutationRate": "Probability of mutation occurring",
+              "tournamentSize": "Number of candidates in tournament selection"
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "genetic": {
+                  "minPenaltyRate": 0.00001,
+                  "maxPenaltyRate": 0.00006
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.1
+              },
+              "penaltyFunction": "exponential"
+            }
+          }
+        }
+      },
+      "Greedy": {
+        "greedy": {
+          "greedy": {
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "greedy": {
+                  "minPenaltyRate": 0.0001,
+                  "maxPenaltyRate": 0.015
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.7,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "quadratic"
+            }
+          }
+        }
+      },
+      "Dynamic": {
+        "dynamic": {
+          "dynamic": {
+            "dominance": {
+              "alpha": 0.7,
+              "attributes": [
+                "budgetScore",
+                "totalAttrScore",
+                "travelMonthScore",
+                "visitorScore",
+                "penalizedScore"
+              ]
+            },
+            "distanceDecay": {
+              "strategy": "linear",
+              "penalties": {
+                "dynamic": {
+                  "minPenaltyRate": 0,
+                  "maxPenaltyRate": 0.00004
+                }
+              }
+            },
+            "weekAllocation": {
+              "maxWeeksPerRegionRatio": 0.5,
+              "lambdaPenalty": {
+                "scaling": 0.05
+              },
+              "penaltyFunction": "linear"
+            }
+          }
+        }
+      }
+    },
+    "parameterSensitivity": {
+      "Genetic": {
+        "populationSize": {
+          "variance": 0.45336442611624533,
+          "range": {
+            "min": 18.77826374291966,
+            "max": 21.878931082199593
+          }
+        },
+        "generations": {
+          "variance": 0.45336442611624533,
+          "range": {
+            "min": 18.77826374291966,
+            "max": 21.878931082199593
+          }
+        },
+        "mutationRate": {
+          "variance": 0.45336442611624533,
+          "range": {
+            "min": 18.77826374291966,
+            "max": 21.878931082199593
+          }
+        },
+        "tournamentSize": {
+          "variance": 0.45336442611624533,
+          "range": {
+            "min": 18.77826374291966,
+            "max": 21.878931082199593
+          }
+        },
+        "distanceDecay": {
+          "variance": 0.45336442611624533,
+          "range": {
+            "min": 18.77826374291966,
+            "max": 21.878931082199593
+          }
+        },
+        "weekAllocation": {
+          "variance": 0.45336442611624533,
+          "range": {
+            "min": 18.77826374291966,
+            "max": 21.878931082199593
+          }
+        }
+      },
+      "Dynamic": {
+        "dominance": {
+          "variance": 0.25712715596465624,
+          "range": {
+            "min": 22.041029072569216,
+            "max": 24.154866292887156
+          }
+        },
+        "distanceDecay": {
+          "variance": 0.25712715596465624,
+          "range": {
+            "min": 22.041029072569216,
+            "max": 24.154866292887156
+          }
+        },
+        "weekAllocation": {
+          "variance": 0.25712715596465624,
+          "range": {
+            "min": 22.041029072569216,
+            "max": 24.154866292887156
+          }
+        }
+      },
+      "Greedy": {
+        "distanceDecay": {
+          "variance": 0.015601325327361477,
+          "range": {
+            "min": 18.514438605663674,
+            "max": 19.164894661974042
+          }
+        },
+        "weekAllocation": {
+          "variance": 0.015601325327361477,
+          "range": {
+            "min": 18.514438605663674,
+            "max": 19.164894661974042
+          }
+        }
+      }
+    },
+    "statisticalSummary": {
+      "Genetic": {
+        "mean": 19.522872348523666,
+        "std": 0.6733234186601899,
+        "min": 18.77826374291966,
+        "max": 21.878931082199593,
+        "median": 19.285285778412717
+      },
+      "Dynamic": {
+        "mean": 22.752835329497376,
+        "std": 0.5070770710302885,
+        "min": 22.041029072569216,
+        "max": 24.154866292887156,
+        "median": 22.63780453349174
+      },
+      "Greedy": {
+        "mean": 18.75752317429029,
+        "std": 0.1249052654108764,
+        "min": 18.514438605663674,
+        "max": 19.164894661974042,
+        "median": 18.799536984811102
+      }
+    }
+  },
+  "algorithmComparison": {
+    "detailedResults": {
+      "Budget Traveler, Long Trip": {
+        "Greedy": {
+          "averageTripCost": 1350,
+          "numberOfRegions": 4,
+          "averageWeeksPerRegion": 3.25,
+          "totalDistance": 26513.51575035997,
+          "averageRegionScore": 22.947981710541455,
+          "geographicalDiversity": 54.02955874587592,
+          "computationTime": 2.400000000372529
+        },
+        "Genetic": {
+          "averageTripCost": 860,
+          "numberOfRegions": 6,
+          "averageWeeksPerRegion": 2.1666666666666665,
+          "totalDistance": 26400.17226720357,
+          "averageRegionScore": 61.05632158488447,
+          "geographicalDiversity": 31.34156264350225,
+          "computationTime": 12.799999998882413
+        },
+        "Dynamic": {
+          "averageTripCost": 1443.75,
+          "numberOfRegions": 4,
+          "averageWeeksPerRegion": 3.25,
+          "totalDistance": 6324.007560308364,
+          "averageRegionScore": 82.05579569225395,
+          "geographicalDiversity": 20.491279734200077,
+          "computationTime": 1.8999999985098839
+        }
+      },
+      "Luxury Traveler, Short Trip": {
+        "Greedy": {
+          "averageTripCost": 441.25,
+          "numberOfRegions": 4,
+          "averageWeeksPerRegion": 1,
+          "totalDistance": 40476.33445669887,
+          "averageRegionScore": 84.895,
+          "geographicalDiversity": 93.67650852687358,
+          "computationTime": 2.399999998509884
+        },
+        "Genetic": {
+          "averageTripCost": 457.5,
+          "numberOfRegions": 4,
+          "averageWeeksPerRegion": 1,
+          "totalDistance": 21013.87804365158,
+          "averageRegionScore": 77.0825,
+          "geographicalDiversity": 54.78162770673181,
+          "computationTime": 15.799999998882413
+        },
+        "Dynamic": {
+          "averageTripCost": 925,
+          "numberOfRegions": 2,
+          "averageWeeksPerRegion": 2,
+          "totalDistance": 12165.486257152246,
+          "averageRegionScore": 86.46000000000001,
+          "geographicalDiversity": 58.41917321678155,
+          "computationTime": 2
+        }
+      },
+      "Mid-Range, Distance Sensitive": {
+        "Greedy": {
+          "averageTripCost": 658,
+          "numberOfRegions": 5,
+          "averageWeeksPerRegion": 1.4,
+          "totalDistance": 49324.296476127434,
+          "averageRegionScore": 17.5,
+          "geographicalDiversity": 102.12928199377497,
+          "computationTime": 1.400000000372529
+        },
+        "Genetic": {
+          "averageTripCost": 1053.3333333333333,
+          "numberOfRegions": 3,
+          "averageWeeksPerRegion": 2.3333333333333335,
+          "totalDistance": 3979.5144514662734,
+          "averageRegionScore": 71.63026140676028,
+          "geographicalDiversity": 11.932980971335672,
+          "computationTime": 7.399999998509884
+        },
+        "Dynamic": {
+          "averageTripCost": 1650,
+          "numberOfRegions": 2,
+          "averageWeeksPerRegion": 3.5,
+          "totalDistance": 12165.486257152246,
+          "averageRegionScore": 71.22575527915808,
+          "geographicalDiversity": 58.41917321678155,
+          "computationTime": 2.5
+        }
+      },
+      "Cultural Explorer": {
+        "Greedy": {
+          "averageTripCost": 640,
+          "numberOfRegions": 7,
+          "averageWeeksPerRegion": 1.4285714285714286,
+          "totalDistance": 65120.017332060175,
+          "averageRegionScore": 13.11313240602369,
+          "geographicalDiversity": 89.58865036292417,
+          "computationTime": 5.700000001117587
+        },
+        "Genetic": {
+          "averageTripCost": 830,
+          "numberOfRegions": 5,
+          "averageWeeksPerRegion": 2,
+          "totalDistance": 15315.06879865422,
+          "averageRegionScore": 74.94480583198337,
+          "geographicalDiversity": 33.37905053617213,
+          "computationTime": 12.399999998509884
+        },
+        "Dynamic": {
+          "averageTripCost": 895,
+          "numberOfRegions": 5,
+          "averageWeeksPerRegion": 2,
+          "totalDistance": 20881.00541566545,
+          "averageRegionScore": 77.67891746946692,
+          "geographicalDiversity": 50.95756716146765,
+          "computationTime": 2.199999999254942
+        }
+      },
+      "Adventure Seeker": {
+        "Greedy": {
+          "averageTripCost": 437.85714285714283,
+          "numberOfRegions": 7,
+          "averageWeeksPerRegion": 1,
+          "totalDistance": 79148.05738442388,
+          "averageRegionScore": 12.5,
+          "geographicalDiversity": 89.58865036292418,
+          "computationTime": 15
+        },
+        "Genetic": {
+          "averageTripCost": 665,
+          "numberOfRegions": 4,
+          "averageWeeksPerRegion": 1.75,
+          "totalDistance": 14891.481670121899,
+          "averageRegionScore": 68.45160591556147,
+          "geographicalDiversity": 36.27831559017738,
+          "computationTime": 8.900000000372529
+        },
+        "Dynamic": {
+          "averageTripCost": 1650,
+          "numberOfRegions": 2,
+          "averageWeeksPerRegion": 3.5,
+          "totalDistance": 12165.486257152246,
+          "averageRegionScore": 47.1463026697053,
+          "geographicalDiversity": 58.41917321678155,
+          "computationTime": 5.699999999254942
+        }
+      }
+    },
+    "analysis": {
+      "algorithmComparison": {
+        "averageTripCost": [
+          "Dynamic",
+          "Genetic",
+          "Greedy"
+        ],
+        "numberOfRegions": [
+          "Greedy",
+          "Genetic",
+          "Dynamic"
+        ],
+        "averageWeeksPerRegion": [
+          "Dynamic",
+          "Genetic",
+          "Greedy"
+        ],
+        "totalDistance": [
+          "Greedy",
+          "Genetic",
+          "Dynamic"
+        ],
+        "averageRegionScore": [
+          "Dynamic",
+          "Genetic",
+          "Greedy"
+        ],
+        "geographicalDiversity": [
+          "Greedy",
+          "Dynamic",
+          "Genetic"
+        ],
+        "computationTime": [
+          "Genetic",
+          "Greedy",
+          "Dynamic"
+        ]
+      },
+      "averageMetrics": {
+        "Greedy": {
+          "averageTripCost": {
+            "mean": 705.4214285714286,
+            "std": 335.6746879382611
+          },
+          "numberOfRegions": {
+            "mean": 5.4,
+            "std": 1.3564659966250536
+          },
+          "averageWeeksPerRegion": {
+            "mean": 1.6157142857142859,
+            "std": 0.8379323434770244
+          },
+          "totalDistance": {
+            "mean": 52116.44427993406,
+            "std": 18431.490523007433
+          },
+          "averageRegionScore": {
+            "mean": 30.19122282331303,
+            "std": 27.606794284199555
+          },
+          "geographicalDiversity": {
+            "mean": 85.80252999847457,
+            "std": 16.53332081360786
+          },
+          "computationTime": {
+            "mean": 5.380000000074506,
+            "std": 5.024898009002984
+          }
+        },
+        "Genetic": {
+          "averageTripCost": {
+            "mean": 773.1666666666666,
+            "std": 200.30421308044865
+          },
+          "numberOfRegions": {
+            "mean": 4.4,
+            "std": 1.0198039027185568
+          },
+          "averageWeeksPerRegion": {
+            "mean": 1.85,
+            "std": 0.4666666666666667
+          },
+          "totalDistance": {
+            "mean": 16320.023046219509,
+            "std": 7469.678693683209
+          },
+          "averageRegionScore": {
+            "mean": 70.63309894783791,
+            "std": 5.615220381522865
+          },
+          "geographicalDiversity": {
+            "mean": 33.54270748958385,
+            "std": 13.641315083933216
+          },
+          "computationTime": {
+            "mean": 11.459999999031425,
+            "std": 2.985029312911188
+          }
+        },
+        "Dynamic": {
+          "averageTripCost": {
+            "mean": 1312.75,
+            "std": 337.4911109940527
+          },
+          "numberOfRegions": {
+            "mean": 3,
+            "std": 1.2649110640673518
+          },
+          "averageWeeksPerRegion": {
+            "mean": 2.85,
+            "std": 0.7
+          },
+          "totalDistance": {
+            "mean": 12740.294349486112,
+            "std": 4656.847127682616
+          },
+          "averageRegionScore": {
+            "mean": 72.91335422211685,
+            "std": 13.831813885588007
+          },
+          "geographicalDiversity": {
+            "mean": 49.34127330920248,
+            "std": 14.711623535766691
+          },
+          "computationTime": {
+            "mean": 2.8599999994039536,
+            "std": 1.4347125147298723
+          }
+        }
+      }
+    },
+    "parameters": {
+      "Greedy": {
+        "greedy": {
+          "distanceDecay": {
+            "strategy": "linear",
+            "penalties": {
+              "greedy": {
+                "minPenaltyRate": 0.0001,
+                "maxPenaltyRate": 0.015
+              }
+            }
+          },
+          "weekAllocation": {
+            "maxWeeksPerRegionRatio": 0.7,
+            "lambdaPenalty": {
+              "scaling": 0.05
+            },
+            "penaltyFunction": "quadratic"
+          }
+        }
+      },
+      "Genetic": {
+        "genetic": {
+          "populationSize": 20,
+          "generations": 200,
+          "mutationRate": 0.01,
+          "tournamentSize": 2,
+          "description": {
+            "populationSize": "Number of chromosomes in each generation",
+            "generations": "Number of evolution iterations",
+            "mutationRate": "Probability of mutation occurring",
+            "tournamentSize": "Number of candidates in tournament selection"
+          },
+          "distanceDecay": {
+            "strategy": "linear",
+            "penalties": {
+              "genetic": {
+                "minPenaltyRate": 0.00001,
+                "maxPenaltyRate": 0.00006
+              }
+            }
+          },
+          "weekAllocation": {
+            "maxWeeksPerRegionRatio": 0.5,
+            "lambdaPenalty": {
+              "scaling": 0.1
+            },
+            "penaltyFunction": "exponential"
+          }
+        }
+      },
+      "Dynamic": {
+        "dynamic": {
+          "dominance": {
+            "alpha": 0.7,
+            "attributes": [
+              "budgetScore",
+              "totalAttrScore",
+              "travelMonthScore",
+              "visitorScore",
+              "penalizedScore"
+            ]
+          },
+          "distanceDecay": {
+            "strategy": "linear",
+            "penalties": {
+              "dynamic": {
+                "minPenaltyRate": 0,
+                "maxPenaltyRate": 0.00004
+              }
+            }
+          },
+          "weekAllocation": {
+            "maxWeeksPerRegionRatio": 0.5,
+            "lambdaPenalty": {
+              "scaling": 0.05
+            },
+            "penaltyFunction": "linear"
+          }
+        }
+      }
+    }
+  }
+}
