@@ -43,12 +43,11 @@ export class HyperparameterTuning {
 
                 // Genetic-specific distance decay
                 distanceDecay: {
-                    strategy: ["exponential", "linear", "quadratic"],
-                    scalingFunction: ["linear", "quadratic"],
+                    strategy: ["exponential", "linear"],
                     penalties: {
                         genetic: {
-                            minPenaltyRate: [0.00001, 0.00002, 0.00004],
-                            maxPenaltyRate: [0.00002, 0.00004, 0.00006]
+                            minPenaltyRate: [0.00001, 0.00002, 0.00003],
+                            maxPenaltyRate: [0.00005, 0.00006, 0.00007]   
                         }
                     }
                 },
@@ -73,8 +72,7 @@ export class HyperparameterTuning {
 
                 // Dynamic-specific distance decay
                 distanceDecay: {
-                    strategy: ["exponential", "linear", "quadratic"],
-                    scalingFunction: ["linear", "quadratic"],
+                    strategy: ["exponential", "linear"],
                     penalties: {
                         dynamic: {
                             minPenaltyRate: [0, 0.00001, 0.00002],
@@ -96,8 +94,7 @@ export class HyperparameterTuning {
             Greedy: {
                 // Greedy-specific distance decay
                 distanceDecay: {
-                    strategy: ["exponential", "linear", "quadratic"],
-                    scalingFunction: ["linear", "quadratic"],
+                    strategy: ["exponential", "linear"],
                     penalties: {
                         greedy: {
                             minPenaltyRate: [0.00001, 0.00005, 0.0001],
@@ -284,7 +281,10 @@ export class HyperparameterTuning {
     }
 
     calculateCompositeScore(metrics, scenario) {
+        // debugger
         if (!metrics) return 0;
+
+
 
         const safeDiv = (a, b) => (b && b !== 0) ? a / b : 0;
 

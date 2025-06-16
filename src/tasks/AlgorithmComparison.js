@@ -57,6 +57,8 @@ export class AlgorithmComparison {
                       ...this.calculateMetrics(algorithmResults),
                       computationTime: endTime - startTime
                   };
+                  
+                  console.log(results)
               } catch (error) {
                   console.error(`Error running ${algoName} algorithm:`, error);
                   results[scenario.name][algoName] = {

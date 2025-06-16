@@ -318,7 +318,7 @@ class LoadCountriesTask {
     }
     else if (type === "composite") {
       if (!this.isOptimizing) { 
-      // this.optimizeAndEvaluate(this.mapCountries)
+      this.optimizeAndEvaluate(this.mapCountries)
       } else{
         console.log("already optimizing")
       }
@@ -352,9 +352,9 @@ class LoadCountriesTask {
             (...args) => this.geneticRecommendationAlgorithm.apply(this, args),
             (...args) => this.dynamicDPDominanceRecommendation.apply(this, args),
             {
-                batchSize: 50,
-                maxCacheSize: 500,
-                timeoutBetweenBatches: 10,
+                batchSize: 10,
+                maxCacheSize: 100,
+                timeoutBetweenBatches: 100,
                 enableProgressTracking: true,
                 enableCaching: true
             }
@@ -623,8 +623,7 @@ greedyRecommendationAlgorithm = (mapCountries, userData, setResults, algorithmPa
     );
 };
 
-
-geneticRecommendationAlgorithm = (mapCountries, userData, setResults, algorithmParameters) => {
+ geneticRecommendationAlgorithm = (mapCountries, userData, setResults, algorithmParameters) => {
     // Get genetic-specific parameters
     const geneticParams = algorithmParameters.genetic;
     const populationSize = geneticParams.populationSize;
@@ -802,7 +801,6 @@ geneticRecommendationAlgorithm = (mapCountries, userData, setResults, algorithmP
         }))
     );
 };
-  
   
 dynamicDPDominanceRecommendation = (mapCountries, userData, setResults, algorithmParameters) => {
     // Get dynamic-specific parameters
@@ -994,18 +992,23 @@ dynamicDPDominanceRecommendation = (mapCountries, userData, setResults, algorith
 
     // If distance is not important, return no penalty
     if (userData.isDistanceNotImportant) {
-        return 0;
+        return 1;
     }
 
     // Calculate scaled distance importance based on scalingFunction
     let scaledDistance;
     switch(scalingFunction) {
-        case "quadratic":
-            scaledDistance = Math.pow(userData.Distance / 100, 2);
-            break;
+        // case "quadratic":
+        //     scaledDistance = Math.pow(userData.Distance / 100, 2);
+        //     break;
         case "linear":
             scaledDistance = userData.Distance / 100;
             break;
+        case "exponential":
+            // For slider values 0-100, create exponential growth
+            // e^(x/50) - 1 normalized to [0,1] range
+        scaledDistance = (Math.exp(userData.Distance / 50) - 1) / (Math.E * Math.E - 1);
+        break;
         default:
             scaledDistance = userData.Distance / 100;
     }
@@ -1019,9 +1022,9 @@ dynamicDPDominanceRecommendation = (mapCountries, userData, setResults, algorith
         case "exponential":
             return Math.exp(-penaltyRate * distance);
         case "linear":
-            return Math.max(0, 1 - penaltyRate * distance);
-        case "quadratic":
-            return Math.max(0, 1 - penaltyRate * distance * distance);
+            return Math.max(0, 1 - (penaltyRate * distance * 0.1));
+        // case "quadratic":
+        //     return Math.max(0, 1 - (penaltyRate * distance * distance * 0.1));
         default:
             return Math.exp(-penaltyRate * distance);
     }

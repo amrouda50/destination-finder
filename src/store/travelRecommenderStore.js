@@ -246,10 +246,10 @@ const useTravelRecommenderStore = create((set) => ({
     algorithmParameters: {
         // Algorithm-specific parameters
         genetic: {
-            populationSize: 30,
+            populationSize: 20,
             generations: 100,
-            mutationRate: 0.05,
-            tournamentSize: 2,
+            mutationRate: 0.01,
+            tournamentSize: 3,
             description: {
                 populationSize: "Number of chromosomes in each generation",
                 generations: "Number of evolution iterations",
@@ -257,12 +257,12 @@ const useTravelRecommenderStore = create((set) => ({
                 tournamentSize: "Number of candidates in tournament selection"
             },
             distanceDecay: {
-                strategy: "exponential",
+                strategy: "linear",
                 scalingFunction: "linear",
                 penalties: {
                     genetic: {
-                        minPenaltyRate: 0.00002,
-                        maxPenaltyRate: 0.00006,
+                        minPenaltyRate: 0.00001,
+                        maxPenaltyRate: 0.00005,
                         description: "Lower penalties due to multiplicative accumulation in genetic algorithm"
                     }
                 },
@@ -280,7 +280,7 @@ const useTravelRecommenderStore = create((set) => ({
                         min: 0,
                         max: 100
                     },
-                    scaling: 0.2,
+                    scaling: 0.05,
                     description: "Percentage-based penalty (0-100%) scaled by 0.1 to control distribution uniformity"
                 },
                 penaltyFunction: "exponential",
@@ -294,12 +294,12 @@ const useTravelRecommenderStore = create((set) => ({
 
         greedy: {
             distanceDecay: {
-                strategy: "exponential",
+                strategy: "linear",
                 scalingFunction: "linear",
                 penalties: {
                     greedy: {
-                        minPenaltyRate:  0.00001,
-                        maxPenaltyRate:  0.015,
+                        minPenaltyRate:  0.00005,
+                        maxPenaltyRate:  0.01,
                         description: "Higher penalties as they're applied individually in greedy algorithm"
                     }
                 },
@@ -331,7 +331,7 @@ const useTravelRecommenderStore = create((set) => ({
 
         dynamic: {
             dominance: {
-                alpha: 0.5,
+                alpha: 0.7,
                 attributes: ['budgetScore', 'totalAttrScore', 'travelMonthScore',
                     'visitorScore', 'penalizedScore'],
                 normalization: "maxNorm",
@@ -342,7 +342,7 @@ const useTravelRecommenderStore = create((set) => ({
                 }
             },
             distanceDecay: {
-                strategy: "exponential",
+                strategy: "linear",
                 scalingFunction: "linear",
                 penalties: {
                     dynamic: {
@@ -358,7 +358,7 @@ const useTravelRecommenderStore = create((set) => ({
                 }
             },
             weekAllocation: {
-                maxWeeksPerRegionRatio: 0.7,
+                maxWeeksPerRegionRatio: 0.5,
                 lambdaPenalty: {
                     percentage: true,
                     range: {
@@ -368,7 +368,7 @@ const useTravelRecommenderStore = create((set) => ({
                     scaling: 0.05,
                     description: "Percentage-based penalty (0-100%) scaled by 0.1 to control distribution uniformity"
                 },
-                penaltyFunction: "exponential",
+                penaltyFunction: "linear",
                 description: {
                     maxWeeksPerRegionRatio: "Maximum weeks per region as ratio of total weeks",
                     lambdaPenalty: "Penalty weight for deviation from mean distribution",
